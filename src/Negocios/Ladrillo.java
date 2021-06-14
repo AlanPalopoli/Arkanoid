@@ -8,13 +8,13 @@ public class Ladrillo {
 	private int ancho;
 	private int alto;
 	
-	public Ladrillo(int valorInicial, int xInicio, int yInicio, int anchoInicio, int altoInicio) {
+	public Ladrillo(int valorInicial, int xInicio, int yInicio, int anchoInicio, int altoInicio, boolean estado) {
 		this.valor = valorInicial;
 		this.setPosicionX(xInicio);
 		this.setPosicionY(yInicio);
 		this.setAncho(anchoInicio);
 		this.setAlto(altoInicio);
-		this.destruido = false;
+		this.destruido = estado;
 	}
 	/*-----------FUNCIONES------------*/
 	public int destruir() {

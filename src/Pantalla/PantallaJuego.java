@@ -75,28 +75,29 @@ public class PantallaJuego extends JFrame implements KeyListener{
 
 	private void iniciarComponentes() {
 		this.controlador= new Controlador();
-
-		contenedor = this.getContentPane();
-		this.getContentPane().setBackground(Color.cyan);
-		this.contenedor.setLayout(null);
-		//fondoJuego = this.getClass().getResource("/image/fondo_inicio.png");
-		//imagenFondoJuego = new ImageIcon(fondoJuego).getImage();
-	
+		
 		this.setSize(900, 600);
 		this.setResizable(false);
 		setLocationRelativeTo(null);
 		this.setTitle("Arkanoid");
 		addKeyListener(this);
 		
+		contenedor = this.getContentPane();
+		//this.getContentPane().setBackground(Color.yellow);
+		this.contenedor.setLayout(null);
+		fondoJuego = this.getClass().getResource("/image/fondo_inicio.png");
+		imagenFondoJuego = new ImageIcon(fondoJuego).getImage();
+	
+
 		
 		botonSalir = new JButton("Salir");
 
 		//puntomira = new Point(500, 50);
 
 		labelNivel.setBounds(20, 5, 75, 25);
-		labelVidas.setBounds(115, 5, 140, 25);
+		labelVidas.setBounds(370, 5, 140, 25);
 		//labelProximaVidaEn.setBounds(275, 5, 150, 25);
-		labelPuntosTotal.setBounds(425, 5, 150, 25);
+		labelPuntosTotal.setBounds(785, 5, 150, 25);
 		//labelPotencia.setBounds(800, 525, 150, 25);
 		//labelBarcosHundidos.setBounds(580, 5, 150, 25);
 		//labelBarcosRestantes.setBounds(750, 5, 150, 25);
@@ -241,8 +242,10 @@ public class PantallaJuego extends JFrame implements KeyListener{
 						for (int i=0;i<25;i++){
 							boolean estado = controlador.getEstadoLadrillo(i);
 							if (estado) {
-								ladrillos[i].setVisible(false);
-								ladrillos[i] = null;
+								if(ladrillos[i] != null) {
+									ladrillos[i].setVisible(false);
+									ladrillos[i] = null;
+								}
 							}
 						}
 					finalizoElNivel();
@@ -341,11 +344,13 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		int sizeArray = 0;
 		int sizeArray2 = controlador.sizeLadrillos(sizeArray);
 		for (int i=0;i<sizeArray2;i++){
-			this.ladrillos[i].setBounds(controlador.PosXLadrillo(i),controlador.PosYLadrillo(i),controlador.AnchoLadrillo(i),controlador.AlturaLadrillo(i));
-			this.ladrillos[i].setIcon(new ImageIcon(urlImagen));
-			this.ladrillos[i].setVisible(true);
-			contenedor.add(this.ladrillos[i]);
-
+			boolean estado = controlador.getEstadoLadrillo(i);
+			if (!estado) {
+				this.ladrillos[i].setBounds(controlador.PosXLadrillo(i),controlador.PosYLadrillo(i),controlador.AnchoLadrillo(i),controlador.AlturaLadrillo(i));
+				this.ladrillos[i].setIcon(new ImageIcon(urlImagen));
+				this.ladrillos[i].setVisible(true);
+				contenedor.add(this.ladrillos[i]);
+			}
         }
     }
 		

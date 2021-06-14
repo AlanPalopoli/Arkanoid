@@ -35,13 +35,13 @@ public class Partida {
 		this.ladrillos = new ArrayList <Ladrillo>();
 		for (int i = 0; i<5; i++) {
 			for(int j = 0 ; j<5; j++) {
-				agregarLadrillo(this.ladrillos, (i+1)*10, this.xMenor + 200 + i*100, this.yMenor + 100 + j*40, 89, 28);
+				agregarLadrillo(this.ladrillos, (i+1)*10, this.xMenor + 200 + i*100, this.yMenor + 100 + j*40, 89, 28, false);
 			}
 		}
 	}
 	/*-----------FUNCIONES------------*/
-	public void agregarLadrillo(ArrayList<Ladrillo>ladrillos, int valor, int x, int y, int ancho, int alto) {
-		Ladrillo nuevoLadrillo = new Ladrillo(valor,x,y,ancho,alto);
+	public void agregarLadrillo(ArrayList<Ladrillo>ladrillos, int valor, int x, int y, int ancho, int alto, boolean estado) {
+		Ladrillo nuevoLadrillo = new Ladrillo(valor,x,y,ancho,alto,estado);
 		ladrillos.add(nuevoLadrillo);
 	}
 	
@@ -70,8 +70,16 @@ public class Partida {
 	}
 	
 	public boolean chocoLadrillo(Ladrillo ladrillo) {
-		return (ladrillo.getPosicionX()==this.bola.getPosicionX()||ladrillo.getPosicionY()==this.bola.getPosicionY());
-		
+		if (ladrillo != null)
+		{
+			int posBolaXAumentada = (int)this.bola.getPosicionX() + 30;
+			int posBolaXDisminuida = (int)this.bola.getPosicionX() - 30;
+			int posBolaYAumentada = (int)this.bola.getPosicionY() +30;
+			int posBolaYDisminuida = (int)this.bola.getPosicionY() -30;
+			return (ladrillo.getPosicionX()>=posBolaXDisminuida && ladrillo.getPosicionX()<=posBolaXAumentada && ladrillo.getPosicionY()>=posBolaYDisminuida && ladrillo.getPosicionY()>=posBolaYAumentada);
+		}
+		else 
+			return false;
 	}
 	
 	public boolean chocoBarra() {
@@ -152,6 +160,9 @@ public class Partida {
 	public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 		//Random num = new Random();
 		if(esta1erCuadrante()) {
+			//System.out.println("Angulo PRIMER cuadrante: ");  
+			//----ME QUEDE ACA, LA BOLA LE PEGA AL LADRILLO  Y LO BORRA PERO NO CAMBIA EL ANGULO POR QUE NO ENTRA EN EL PRIMER IF DE CADA CUADRANTE QUE CHEQUEA POS+ANCHO/ALTO
+
 			if(this.bola.getPosicionX() == (ladrillo.getPosicionX()- ladrillo.getAncho())) {
 				this.bola.setAnguloMovimiento(ThreadLocalRandom.current().nextInt(95, 85 + 1));
 			}
@@ -160,6 +171,7 @@ public class Partida {
 			}
 		}
 		else if (esta2doCuadrante()) {
+			//System.out.println("Angulo SEGUNDO cuadrante: ");
 			if(this.bola.getPosicionX() == (ladrillo.getPosicionX()+ ladrillo.getAncho())) {
 				this.bola.setAnguloMovimiento(-(ThreadLocalRandom.current().nextInt(95, 85 + 1)));
 			}
@@ -168,6 +180,7 @@ public class Partida {
 			}
 		}
 		else if (esta3erCuadrante()) {
+			//System.out.println("Angulo TERCER cuadrante: ");
 			if(this.bola.getPosicionX() == (ladrillo.getPosicionX()+ ladrillo.getAncho())) {
 				this.bola.setAnguloMovimiento(ThreadLocalRandom.current().nextInt(95, 85 + 1));
 			}
@@ -176,6 +189,7 @@ public class Partida {
 			}
 		}
 		else if (esta4toCuadrante()) {
+			//System.out.println("Angulo CUARTO cuadrante: ");
 			if(this.bola.getPosicionX() == (ladrillo.getPosicionX()- ladrillo.getAncho())) {
 				this.bola.setAnguloMovimiento(-(ThreadLocalRandom.current().nextInt(95, 85 + 1)));
 			}
@@ -214,8 +228,10 @@ public class Partida {
 			while(cont< this.ladrillos.size() && !choco) {
 				choco = chocoLadrillo(this.ladrillos.get(cont));
 				cont++;
+				
 			}
 			if(choco) {
+				//System.out.println("CHOQUE LADRILLO: ENTRO ACA");
 				cambiarAnguloLadrillo(this.ladrillos.get(cont-1));
 				this.setPuntos(this.getPuntos() + this.ladrillos.get(cont-1).destruir());
 				colisiono = true;
@@ -256,12 +272,12 @@ public class Partida {
 	
 	public void movimientoBola() {
 		double angulo = this.bola.getAnguloMovimiento();
-		System.out.println("Angulo: " + this.bola.getAnguloMovimiento());
+		//System.out.println("Angulo: " + this.bola.getAnguloMovimiento());
 		//System.out.println("Angulo : " + angulo);
 		
 		double xVelocidad = (this.bola.getVelocidad())*1 * Math.sin(angulo);
 		double yVelocidad =  (this.bola.getVelocidad())*1 * Math.cos(angulo);
-		System.out.println("Angulo EQUIS: " + xVelocidad);
+		//System.out.println("Angulo EQUIS: " + xVelocidad);
 		//System.out.println("Angulo Y: " + yVelocidad);
 		double posX = this.bola.getPosicionX();
 		double posY = this.bola.getPosicionY();

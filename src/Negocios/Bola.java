@@ -61,6 +61,7 @@ public class Bola {
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
+
 	public void setRadio(int radio) {
 		this.radio = radio;
 	}

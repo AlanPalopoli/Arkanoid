@@ -134,7 +134,6 @@ public class Controlador {
 		return this.partida.getPuntos();
 	}
 	
-	
 	public Rectangle getPosicionBola() {
 		return this.partida.getPosicionBolaXY();
 	}
