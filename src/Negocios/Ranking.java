@@ -9,6 +9,7 @@ public class Ranking {
 		this.puntajes = new int []{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	}
 	
+	/*-----------FUNCIONES------------*/
 	public boolean chequearPuntaje(int puntaje) {
 		if (this.puntajes[19] < puntaje){
 			return true;

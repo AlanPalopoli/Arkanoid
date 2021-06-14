@@ -39,11 +39,12 @@ public class Partida {
 			}
 		}
 	}
-	
+	/*-----------FUNCIONES------------*/
 	public void agregarLadrillo(ArrayList<Ladrillo>ladrillos, int valor, int x, int y, int ancho, int alto) {
 		Ladrillo nuevoLadrillo = new Ladrillo(valor,x,y,ancho,alto);
 		ladrillos.add(nuevoLadrillo);
-		}
+	}
+	
 	public void aumentoVida() {
 		this.vidas++;
 	}
@@ -66,10 +67,6 @@ public class Partida {
 	
 	public void reanudarPartida() {
 		this.setEstadoPartida(true);
-	}
-	
-	public int getVidas() {
-		return this.vidas;
 	}
 	
 	public boolean chocoLadrillo(Ladrillo ladrillo) {
@@ -230,53 +227,31 @@ public class Partida {
 	public boolean esta1erCuadrante() {
 		return (Math.abs(this.bola.getAnguloMovimiento())>0 && Math.abs(this.bola.getAnguloMovimiento())< 90);
 	}
+	
 	public boolean esta2doCuadrante() {
 		return (Math.abs(this.bola.getAnguloMovimiento())>90 && Math.abs(this.bola.getAnguloMovimiento())< 180);
 	}
+	
 	public boolean esta3erCuadrante() {
 		return (Math.abs(this.bola.getAnguloMovimiento())>180 && Math.abs(this.bola.getAnguloMovimiento())< 270);
 	}
+	
 	public boolean esta4toCuadrante() {
 		return (Math.abs(this.bola.getAnguloMovimiento())>270 && Math.abs(this.bola.getAnguloMovimiento())< 360);
 	}
-
-	public boolean getEstadoPartida() {
-		return estadoPartida;
-	}
-
-	public void setEstadoPartida(boolean estadoPartida) {
-		this.estadoPartida = estadoPartida;
-	}
-
-	public int getNivel() {
-		return nivel;
-	}
-
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
-
-	public int getPuntos() {
-		return puntos;
-	}
-
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
+	
 	public void resetearBola() {
 		this.bola.setPosicionInicio(0,0);
 	}
+	
 	public void resetearBarra() {
 		this.barra.setPosicionInicio(0,0);
 	}
+	
 	public void resetearLadrillo() {
 		for(int i=0; i<this.ladrillos.size();i++) {
 			this.ladrillos.get(i).resetearLadrillo();
 		}
-	}
-	
-	public Rectangle getPosicionBolaXY() {
-		return new Rectangle((int) this.bola.getPosicionX(), (int) this.bola.getPosicionY(), 20, 20);
 	}
 	
 	public void movimientoBola() {
@@ -304,16 +279,6 @@ public class Partida {
 		//System.out.println("PosY: " + posY);
 	}
 	
-	public int getLadrillosDestruidos() {
-		int destruido = 0;
-		for(int i=0; i<this.ladrillos.size();i++) {
-			if(this.ladrillos.get(i).estadoLadrillo()) {
-				destruido++;
-			}		
-		}
-		return destruido;
-		}
-	
 	public void subirVelocidad() {
 		this.bola.aumentarVelocidad(1);
 	}
@@ -332,38 +297,93 @@ public class Partida {
 		this.bola.setAnguloMovimiento(angulo);
 		this.bola.setPosicionInicio((int)this.bola.getPosicionX(), (int)this.bola.getPosicionY());
 	}
+	
 	public void aumentarPosicionBolaEnBarra(int velocidad) {
 		this.bola.setPosicionX(this.bola.getPosicionX()+ velocidad);
 	}
+	
+	
 	public void restarPosicionBolaEnBarra(int velocidad) {
 		this.bola.setPosicionX(this.bola.getPosicionX()- velocidad);
 	}
-	public double getPosXBola() {
-		return this.bola.getPosicionX();
-	}
-	public void setPosXBola(int pos) {
-		this.bola.setPosicionX(pos);
-	}
+	
 	public int tamLadrillos(int cont) {
 		return cont = this.ladrillos.size();
 	}
-	public int getPosXLadrillo(int id) {
-		//System.out.println("posx primer id"+ this.ladrillos.get(id).getPosicionX());
-		return this.ladrillos.get(id).getPosicionX();
-	}
-	public int getPosYLadrillo(int id) {
-		//System.out.println("posY primer id"+ this.ladrillos.get(id).getPosicionY());
-		return this.ladrillos.get(id).getPosicionY();
-	}
-	public int getAlturaLadrillo(int id) {
-		return this.ladrillos.get(id).getAlto();
-	}
-	public int getAnchoLadrillo(int id) {
-		return this.ladrillos.get(id).getAncho();
-	}
+
 	public boolean estadoLadrillo(int id) {
 		return this.ladrillos.get(id).estadoLadrillo();
 	}
+
+	/*-----------GETTERS------------*/
+	public boolean getEstadoPartida() {
+		return estadoPartida;
+	}
+	
+	public int getVidas() {
+		return this.vidas;
+	}
+	
+	public int getNivel() {
+		return nivel;
+	}
+	
+	public int getPuntos() {
+		return puntos;
+	}
+	
+	public Rectangle getPosicionBolaXY() {
+		return new Rectangle((int) this.bola.getPosicionX(), (int) this.bola.getPosicionY(), 20, 20);
+	}
+	
+	public int getLadrillosDestruidos() {
+		int destruido = 0;
+		for(int i=0; i<this.ladrillos.size();i++) {
+			if(this.ladrillos.get(i).estadoLadrillo()) {
+				destruido++;
+			}		
+		}
+		return destruido;
+	}
+	
+	public double getPosXBola() {
+		return this.bola.getPosicionX();
+	}
+	
+	public int getPosXLadrillo(int id) {
+		return this.ladrillos.get(id).getPosicionX();
+	}
+	
+	public int getPosYLadrillo(int id) {
+		return this.ladrillos.get(id).getPosicionY();
+	}
+	
+	public int getAlturaLadrillo(int id) {
+		return this.ladrillos.get(id).getAlto();
+	}
+	
+	public int getAnchoLadrillo(int id) {
+		return this.ladrillos.get(id).getAncho();
+	}
+	
+	/*-----------SETTERS------------*/
+	public void setEstadoPartida(boolean estadoPartida) {
+		this.estadoPartida = estadoPartida;
+	}
+	
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+	
+
+	public void setPosXBola(int pos) {
+		this.bola.setPosicionX(pos);
+	}
+
 }
 
 

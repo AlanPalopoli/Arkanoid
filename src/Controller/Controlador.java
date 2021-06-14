@@ -15,6 +15,7 @@ public class Controlador {
 		this.partida = new Partida(this.barra);
 		this.ranking = new Ranking();
 	}
+	/*-----------FUNCIONES------------*/
 	public boolean estadoPartida(){
 		return this.partida.getEstadoPartida();
 	}
@@ -58,31 +59,24 @@ public class Controlador {
 		this.nombreJugador = nombre;
 	}
 	
-	public int getNumeroNivel() {
-		return this.partida.getNivel();
-	}
-	
-	public int getNumeroVidas() {
-		return this.partida.getVidas();
-	}
-	public int getPuntaje() {
-		return this.partida.getPuntos();
-	}
 	public void terminarPartida() {
 		this.partida = new Partida(this.barra);
 	}
+	
+	
 	public boolean revisarColision() {
 		if(this.estadoPartida() == true)
 			return this.partida.chequearColision();
 		else 
 			return false;
 	}
+	
 	public void moverBola() {
 		this.partida.movimientoBola();
 	}
-	public Rectangle getPosicionBola() {
-		return this.partida.getPosicionBolaXY();
-	}
+		
+	
+
 	public boolean nivelSuperado() {
 		boolean aumenta = this.partida.getLadrillosDestruidos() == 20;
 		if(aumenta) {
@@ -102,49 +96,85 @@ public class Controlador {
 	public void registrarEnRanking(int puntos, String nombre) {
 		ranking.grabarGanador(puntos, nombre);
 	}
-	public int getPosicionXBarra() {
-		return this.barra.getPosicionX();
-	}
-	public int getPosicionYBarra() {
-		return this.barra.getPosicionY();
-	}
-	public int getAnchoBarra() {
-		return this.barra.getAncho();
-	}
-	public int getAltoBarra() {
-		return this.barra.getAlto();
-	}
-	public void setPosicionXBarra(int pos) {
-		this.barra.setPosicionX(pos);
-	}
-	public void setAltoBarra(int pos) {
-		this.barra.setAlto(pos);
-	}
-	public void setAnchoBarra(int pos) {
-		this.barra.setAncho(pos);
-	}
 	
 	public void inicioBola() {
 		this.partida.randomInicioBola();
 	}
+	
 	public int sizeLadrillos(int cont) {
 		return this.partida.tamLadrillos(cont);
 	}
+	
 	public int PosXLadrillo(int id) {
 		return this.partida.getPosXLadrillo(id);
 	}
+	
 	public int PosYLadrillo(int id) {
 		return this.partida.getPosYLadrillo(id);
 	}
+	
 	public int AlturaLadrillo(int id) {
 		return this.partida.getAlturaLadrillo(id);
 	}
+	
 	public int AnchoLadrillo(int id) {
 		return this.partida.getAnchoLadrillo(id);
 	}
+	
+	/*-----------GETTERS------------*/
+	public int getNumeroNivel() {
+		return this.partida.getNivel();
+	}
+	
+	public int getNumeroVidas() {
+		return this.partida.getVidas();
+	}
+	
+	public int getPuntaje() {
+		return this.partida.getPuntos();
+	}
+	
+	
+	public Rectangle getPosicionBola() {
+		return this.partida.getPosicionBolaXY();
+	}
+	
+	public int getPosicionXBarra() {
+		return this.barra.getPosicionX();
+	}
+	
+	public int getPosicionYBarra() {
+		return this.barra.getPosicionY();
+	}
+	
+	public int getAnchoBarra() {
+		return this.barra.getAncho();
+	}
+	
+	public int getAltoBarra() {
+		return this.barra.getAlto();
+	}
+	
 	public boolean getEstadoLadrillo(int id) {
 		return this.partida.estadoLadrillo(id);
 	}
+	
+	/*-----------SETTERS------------*/
+	
+	public void setPosicionXBarra(int pos) {
+		this.barra.setPosicionX(pos);
+	}
+
+	public void setAltoBarra(int pos) {
+		this.barra.setAlto(pos);
+	}
+	
+	public void setAnchoBarra(int pos) {
+		this.barra.setAncho(pos);
+	}
+	
+	
+	
 }
 
 

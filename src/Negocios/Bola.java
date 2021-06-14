@@ -11,40 +11,43 @@ public class Bola {
 		this.setPosicionX(xInicio);
 		this.setPosicionY(yInicio);
 		this.setVelocidad(velPrede);
-		this.radio = radioPrede;
+		this.setRadio(radioPrede);
 		this.setAnguloMovimiento(anguloPrede);
 		
 	}
-	
+	/*-----------FUNCIONES------------*/
 	public void aumentarVelocidad(int velocidadAumentada) {
 		this.setVelocidad(velocidadAumentada);
 	}
 
-
+	/*-----------GETTERS------------*/
 	public double getPosicionX() {
 		return posicionX;
 	}
-
-
-	public void setPosicionX(double posX) {
-		this.posicionX = posX;
-	}
-
-
+	
 	public double getPosicionY() {
 		return posicionY;
 	}
 
+	public double getAnguloMovimiento() {
+		return anguloMovimiento;
+	}
+	
+	public int getVelocidad() {
+		return velocidad;
+	}
+	public int getRadio() {
+		return radio;
+	}
+	
+	/*-----------SETTERS------------*/
+	public void setPosicionX(double posX) {
+		this.posicionX = posX;
+	}
 
 	public void setPosicionY(double posY) {
 		this.posicionY = posY;
 	}
-
-
-	public double getAnguloMovimiento() {
-		return anguloMovimiento;
-	}
-
 
 	public void setAnguloMovimiento(double angulo) {
 		this.anguloMovimiento += angulo;
@@ -55,12 +58,11 @@ public class Bola {
 		this.setPosicionY(yInicio);
 	}
 
-	public int getVelocidad() {
-		return velocidad;
-	}
-
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
+	}
+	public void setRadio(int radio) {
+		this.radio = radio;
 	}
 	
 }

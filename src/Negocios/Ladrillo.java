@@ -16,45 +16,10 @@ public class Ladrillo {
 		this.setAlto(altoInicio);
 		this.destruido = false;
 	}
-	
+	/*-----------FUNCIONES------------*/
 	public int destruir() {
 		this.destruido = true;
 		return this.valor;
-	}
-	public int getValorLadrillo() {
-		return this.valor;
-	}
-
-	public int getPosicionX() {
-		return posicionX;
-	}
-
-	public void setPosicionX(int posicionX) {
-		this.posicionX = posicionX;
-	}
-
-	public int getPosicionY() {
-		return posicionY;
-	}
-
-	public void setPosicionY(int posicionY) {
-		this.posicionY = posicionY;
-	}
-
-	public int getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
-	}
-
-	public int getAlto() {
-		return alto;
-	}
-
-	public void setAlto(int alto) {
-		this.alto = alto;
 	}
 	public void resetearLadrillo() {
 		this.destruido = false;
@@ -62,6 +27,43 @@ public class Ladrillo {
 	public boolean estadoLadrillo() {
 		return this.destruido;
 	}
+	/*-----------GETTERS------------*/
+	public int getValorLadrillo() {
+		return this.valor;
+	}
+
+	public int getPosicionX() {
+		return posicionX;
+	}
 	
+	public int getPosicionY() {
+		return posicionY;
+	}
+	
+	public int getAncho() {
+		return ancho;
+	}
+	
+	public int getAlto() {
+		return alto;
+	}
+	/*-----------SETTERS------------*/
+	public void setPosicionX(int posicionX) {
+		this.posicionX = posicionX;
+	}
+
+	public void setPosicionY(int posicionY) {
+		this.posicionY = posicionY;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+	
+
 
 }
