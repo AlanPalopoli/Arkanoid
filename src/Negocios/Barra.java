@@ -10,9 +10,9 @@ public class Barra {
 	public Barra(int xInicio, int yInicio, int anchoPrede, int altoPrede, int velPrede) {
 		this.setPosicionX(xInicio);
 		this.setPosicionY(yInicio);
-		this.ancho = anchoPrede;
-		this.alto = altoPrede;
-		this.velocidad = velPrede;
+		this.setAncho(anchoPrede);
+		this.setAlto(altoPrede);
+		this.setVelocidad(velPrede);
 	}
 	
 	public void moverDerecha() {
@@ -35,13 +35,37 @@ public class Barra {
 		return posicionX;
 	}
 
-	public void setPosicionX(int posicionX) {
-		this.posicionX = posicionX;
+	public int setPosicionX(int posicionX) {
+		return this.posicionX = posicionX;
 	}
 
 	public void setPosicionInicio(int xInicio, int yInicio) {
 		this.setPosicionX(xInicio);
 		this.setPosicionY(yInicio);
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public int getAlto() {
+		return alto;
+	}
+
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
 	}
 
 }

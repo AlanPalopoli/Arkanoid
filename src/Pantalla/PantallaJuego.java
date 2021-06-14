@@ -163,7 +163,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				principalaux.setVisible(true);
 				PantallaJuego.this.setVisible(false);
 				//PantallaJuego.this.tiempoRecargaTimer.stop();
-				PantallaJuego.this.movimientoBolaTimer.stop();
+				if((PantallaJuego.this.movimientoBolaTimer) != null)
+					PantallaJuego.this.movimientoBolaTimer.stop();
 				//PantallaJuego.this.fueraContainerTimer.stop();
 				//PantallaJuego.this.explosionGifTimer.stop();
 				PantallaJuego.this.labelsTimer.stop();
@@ -472,14 +473,18 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				if (controlador.getPosicionXBarra() < 0) {
 					controlador.setPosicionXBarra(0);
 				}
+				if(controlador.estadoPartida() == false)
+					mostrarBola();
 				mostrarBarra();
 				break;
 
 			case KeyEvent.VK_RIGHT :
 				controlador.controlarBarra(true);
-				if (controlador.getPosicionXBarra() > 960) {
-					controlador.setPosicionXBarra(960);
+				if (controlador.getPosicionXBarra() > 800) {
+					controlador.setPosicionXBarra(800);
 				}
+				if(controlador.estadoPartida() == false)
+					mostrarBola();
 				mostrarBarra();
 				break;
 
@@ -499,7 +504,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		if (this.barra == null ){
 			this.barra = new JLabel();
 		}
-		this.barra.setBounds(controlador.getPosicionXBarra(),controlador.getPosicionYBarra(), 100, 50);
+		this.barra.setBounds(controlador.getPosicionXBarra(),controlador.getPosicionYBarra(), controlador.getAnchoBarra(), controlador.getAltoBarra());
 		this.barra.setIcon(new ImageIcon(urlImagen));
 		this.barra.setVisible(true);
 		contenedor.add(this.barra);

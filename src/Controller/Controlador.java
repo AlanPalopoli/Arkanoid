@@ -11,7 +11,7 @@ public class Controlador {
 	private String nombreJugador;
 	
 	public Controlador(){
-		this.barra = new Barra(380, 500, 0, 40, 20);
+		this.barra = new Barra(380, 500, 100, 50, 30);
 		this.partida = new Partida(this.barra);
 		this.ranking = new Ranking();
 	}
@@ -36,9 +36,21 @@ public class Controlador {
 	public void controlarBarra(boolean direccion) {
 		if(direccion) {
 			this.barra.moverDerecha();
+			if(this.estadoPartida() == false) {
+				this.partida.aumentarPosicionBolaEnBarra(this.barra.getVelocidad());
+				if (this.partida.getPosXBola() > 842) {
+					this.partida.setPosXBola(842);
+				}
+			}
 		}
 		else {
 			this.barra.moverIzquierda();
+			if(this.estadoPartida() == false) {
+				this.partida.restarPosicionBolaEnBarra(this.barra.getVelocidad());
+				if (this.partida.getPosXBola() < 42) {
+					this.partida.setPosXBola(42);
+				}
+			}	
 		}
 	}
 	
@@ -60,7 +72,10 @@ public class Controlador {
 		this.partida = new Partida(this.barra);
 	}
 	public boolean revisarColision() {
-		return this.partida.chequearColision();
+		if(this.estadoPartida() == true)
+			return this.partida.chequearColision();
+		else 
+			return false;
 	}
 	public void moverBola() {
 		this.partida.movimientoBola();
@@ -93,9 +108,22 @@ public class Controlador {
 	public int getPosicionYBarra() {
 		return this.barra.getPosicionY();
 	}
-	public int setPosicionXBarra(int pos) {
-		return this.setPosicionXBarra(pos);
+	public int getAnchoBarra() {
+		return this.barra.getAncho();
 	}
+	public int getAltoBarra() {
+		return this.barra.getAlto();
+	}
+	public void setPosicionXBarra(int pos) {
+		this.barra.setPosicionX(pos);
+	}
+	public void setAltoBarra(int pos) {
+		this.barra.setAlto(pos);
+	}
+	public void setAnchoBarra(int pos) {
+		this.barra.setAncho(pos);
+	}
+	
 	public void inicioBola() {
 		this.partida.randomInicioBola();
 	}
