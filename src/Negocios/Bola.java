@@ -1,53 +1,53 @@
 package Negocios;
 
 public class Bola {
-	private int posicionX;
-	private int posicionY;
+	private double posicionX;
+	private double posicionY;
 	private int velocidad;
 	private int radio;
-	private int anguloMovimiento;
+	private double anguloMovimiento;
 
 	public Bola (int xInicio, int yInicio, int velPrede, int radioPrede, int anguloPrede) {
 		this.setPosicionX(xInicio);
 		this.setPosicionY(yInicio);
-		this.velocidad = velPrede;
+		this.setVelocidad(velPrede);
 		this.radio = radioPrede;
 		this.setAnguloMovimiento(anguloPrede);
 		
 	}
 	
 	public void aumentarVelocidad(int velocidadAumentada) {
-		this.velocidad = velocidadAumentada;
+		this.setVelocidad(velocidadAumentada);
 	}
 
 
-	public int getPosicionX() {
+	public double getPosicionX() {
 		return posicionX;
 	}
 
 
-	public void setPosicionX(int posicionX) {
-		this.posicionX = posicionX;
+	public void setPosicionX(double posX) {
+		this.posicionX = posX;
 	}
 
 
-	public int getPosicionY() {
+	public double getPosicionY() {
 		return posicionY;
 	}
 
 
-	public void setPosicionY(int posicionY) {
-		this.posicionY = posicionY;
+	public void setPosicionY(double posY) {
+		this.posicionY = posY;
 	}
 
 
-	public int getAnguloMovimiento() {
+	public double getAnguloMovimiento() {
 		return anguloMovimiento;
 	}
 
 
-	public void setAnguloMovimiento(int anguloMovimiento) {
-		this.anguloMovimiento += anguloMovimiento;
+	public void setAnguloMovimiento(double angulo) {
+		this.anguloMovimiento += angulo;
 	}
 	
 	public void setPosicionInicio(int xInicio, int yInicio) {
@@ -55,7 +55,14 @@ public class Bola {
 		this.setPosicionY(yInicio);
 	}
 
+	public int getVelocidad() {
+		return velocidad;
+	}
 
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+	
 }
 
 

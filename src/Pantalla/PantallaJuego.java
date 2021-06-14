@@ -29,7 +29,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private static final long serialVersionUID = -7636415361935249703L;
 
 	JFrame principalaux;
-	private JLabel ladrillos = new JLabel();
+	//private JLabel[] ladrillos = new JLabel();
+	private JLabel[] ladrillos=new JLabel[25];
 	private JLabel barra = new JLabel();
 	private JLabel bola = new JLabel();
 	//private JLabel mira = new JLabel();
@@ -57,7 +58,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	//private Point puntomira;
 	
 	private Timer movimientoBolaTimer;
-	private Timer fueraContainerTimer;
+	//private Timer fueraContainerTimer;
 	//private Timer explosionGifTimer;
 	private Timer labelsTimer;
 	//private Timer tiempoRecargaTimer;
@@ -71,15 +72,15 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		this.principalaux = principal;
 		eventos(contenedor);
 	}
-	
+
 	private void iniciarComponentes() {
 		this.controlador= new Controlador();
 
 		contenedor = this.getContentPane();
 		this.getContentPane().setBackground(Color.cyan);
 		this.contenedor.setLayout(null);
-		fondoJuego = this.getClass().getResource("/image/fondo_ranking.jpg");
-		imagenFondoJuego = new ImageIcon(fondoJuego).getImage();
+		//fondoJuego = this.getClass().getResource("/image/fondo_inicio.png");
+		//imagenFondoJuego = new ImageIcon(fondoJuego).getImage();
 	
 		this.setSize(900, 600);
 		this.setResizable(false);
@@ -95,15 +96,15 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		labelNivel.setBounds(20, 5, 75, 25);
 		labelVidas.setBounds(115, 5, 140, 25);
 		//labelProximaVidaEn.setBounds(275, 5, 150, 25);
-		//labelPuntosTotal.setBounds(425, 5, 150, 25);
+		labelPuntosTotal.setBounds(425, 5, 150, 25);
 		//labelPotencia.setBounds(800, 525, 150, 25);
 		//labelBarcosHundidos.setBounds(580, 5, 150, 25);
 		//labelBarcosRestantes.setBounds(750, 5, 150, 25);
 		botonSalir.setBounds(20, 525, 60, 25);
 
-		bola.setBounds(500, 600, 100, 100);
-		barra.setBounds(500, 75, 100, 100);
-		ladrillos.setBounds(500, 60, 60, 60);
+		//bola.setBounds(500, 600, 50, 50);
+		//barra.setBounds(500, 75, 100, 50);
+		//ladrillos.setBounds(500, 60, 60, 60);
 
 		//mira.setIcon(new ImageIcon(urlImagenMira));
 
@@ -128,10 +129,19 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		//contenedor.add(labelBarcosRestantes);
 		//contenedor.add(labelPotencia);
 		contenedor.add(barra);
-		contenedor.add(ladrillos);
+		//contenedor.add(ladrillos);
 		contenedor.add(bola);
 		contenedor.add(botonSalir);
 		contenedor.add(panel);
+		
+		for (int i=0;i<25;i++){
+        	ladrillos[i]=new JLabel();
+		}
+		mostrarBarra();
+		mostrarLadrillo();
+		mostrarBola();
+		//inicializar labels de ladrillos
+		
 	
 		//mostrarCañon(controlador.nuevoCañon(true));
 		
@@ -152,10 +162,10 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			public void actionPerformed(ActionEvent e) {
 				principalaux.setVisible(true);
 				PantallaJuego.this.setVisible(false);
-				PantallaJuego.this.tiempoRecargaTimer.stop();
-				PantallaJuego.this.movimientoElementosTimer.stop();
-				PantallaJuego.this.fueraContainerTimer.stop();
-				PantallaJuego.this.explosionGifTimer.stop();
+				//PantallaJuego.this.tiempoRecargaTimer.stop();
+				PantallaJuego.this.movimientoBolaTimer.stop();
+				//PantallaJuego.this.fueraContainerTimer.stop();
+				//PantallaJuego.this.explosionGifTimer.stop();
 				PantallaJuego.this.labelsTimer.stop();
 				PantallaJuego.this.colisionTimer.stop();
 				//guardarPuntos();
@@ -165,10 +175,9 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		 
 		System.out.println("nueva ventana");
 
-		crearTempMovimientoBola();
 		crearTempColision();
 		crearTempLabels();
-		crearTempFueraContainer();
+		//crearTempFueraContainer();
 		//crearTempRecarga();
 		//crearTempExplosion();
 	}
@@ -204,15 +213,15 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		this.explosionGifTimer.start();
 	}*/
 	
-	private void crearTempFueraContainer() {
+	/*private void crearTempFueraContainer() {
 		ActionListener labelVision = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controlador.colisionoPiso();
+				controlador.revisarColision();
 			}
 		};
 		this.fueraContainerTimer = new Timer(10, labelVision);
 		this.fueraContainerTimer.start();
-	}
+	}*/
 
 	private void crearTempLabels() {
 		ActionListener labelLabel = new ActionListener() {
@@ -227,12 +236,16 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private void crearTempColision() {
 		ActionListener colision = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (controlador.getEstadoJuego() == true) {
-					if (controlador.barcosRestantes() != true) {
-						finalizoElNivel();
+					if(controlador.revisarColision()) {
+						for (int i=0;i<25;i++){
+							boolean estado = controlador.getEstadoLadrillo(i);
+							if (estado) {
+								ladrillos[i].setVisible(false);
+								ladrillos[i] = null;
+							}
+						}
+					finalizoElNivel();
 					}
-					colisiono();
-				}
 			}
 		};
 		this.colisionTimer = new Timer(100, colision);
@@ -242,37 +255,26 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private void crearTempMovimientoBola() {
 		ActionListener movElem = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				moverBarco();
-				moverMisil();
+				moverBola();
 			}
 		};
-		this.movimientoElementosTimer = new Timer(10, movElem);
-		this.movimientoElementosTimer.start();
+		this.movimientoBolaTimer = new Timer(10, movElem);
+		this.movimientoBolaTimer.start();
 	}
 	
-	private void moverBarco() {
-		Barco barco = controlador.moverBarco();
-		mostrarBarco(barco);
+	private void moverBola() {
+		controlador.moverBola();
+		mostrarBola();
 	}
 
-	private void moverMisil() {
+
+	/*private void moverMisil() {
 		Misil misil = controlador.moverMisil();
 		mostrarMisil(misil);
-	}
-	private void mostrarCañon(Cañon cañon) {
-		if (cañon != null) {
-			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\cañon.png";
-			Rectangle bounds = cañon.getPosicion();
-			if (this.cañon == null ){
-				this.cañon = new JLabel();
-			}
-			this.cañon.setBounds(bounds);
-			this.cañon.setIcon(new ImageIcon(urlImagen));
-			this.cañon.setVisible(true);
-			contenedor.add(this.cañon);
-		}
-	}
-	private void mostrarExplosion(int x, int y) {
+	}*/
+
+	
+/*private void mostrarExplosion(int x, int y) {
 		if (explosion != null) {
 			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\explosion.gif";
 			if (this.explosion == null ){
@@ -289,10 +291,10 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				System.out.print("NullPointer por borrado de explosion ");
 			}
 		}
-	}
+	}*/
 
 	
-	private void mostrarBarco(Barco barco) {
+	/*private void mostrarBarco(Barco barco) {
 		if (barco != null) {
 			Rectangle bounds = barco.getPosicion();
 			if (this.barco == null ){
@@ -314,27 +316,41 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				System.out.print("NullPointer por borrado de barco ");
 			}
 		}
-	}
+	}*/
 
-	private void mostrarMisil(Misil misil) {
-		if (misil != null) {
-			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\misil2.gif";
-			Rectangle bounds = misil.getPosicion();
-			if (this.misil == null) {
-				this.misil = new JLabel();
+	private void mostrarBola() {
+		
+			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\bola.png";
+			Rectangle bounds = controlador.getPosicionBola();
+			//System.out.println("La posicion de la bola es: " + controlador.getPosicionBola());
+			if (this.bola == null) {
+				this.bola = new JLabel();
 			}
-			this.misil.setBounds(bounds);
-			this.misil.setIcon(new ImageIcon(urlImagen));
-			this.misil.setVisible(true);
+			this.bola.setBounds(bounds);
+			this.bola.setIcon(new ImageIcon(urlImagen));
+			this.bola.setVisible(true);
 			try {
-				contenedor.add(this.misil);
+				contenedor.add(this.bola);
 			} catch(NullPointerException e){
-				System.out.print("NullPointer por borrado de misil ");
+				System.out.print("NullPointer por borrado de bola ");
 			}
-		}
 	}
+	private void mostrarLadrillo() {
+		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\ladrillo.png";
+		int sizeArray = 0;
+		int sizeArray2 = controlador.sizeLadrillos(sizeArray);
+		for (int i=0;i<sizeArray2;i++){
+			this.ladrillos[i].setBounds(controlador.PosXLadrillo(i),controlador.PosYLadrillo(i),controlador.AnchoLadrillo(i),controlador.AlturaLadrillo(i));
+			this.ladrillos[i].setIcon(new ImageIcon(urlImagen));
+			this.ladrillos[i].setVisible(true);
+			contenedor.add(this.ladrillos[i]);
+
+        }
+    }
+		
+		
 	
-	private void MisilFueraDeContainer() {
+	/*private void MisilFueraDeContainer() {
 		Rectangle posicion = controlador.getPosicionMisil();
 		if (this.misil != null && posicion != null) {
 			if (fueraDeContainer(posicion) == true) {
@@ -374,7 +390,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			
 		}
 	}
-	
+	*/
+	/*
 	private void colisiono() {
 		if (controlador.verificarImpacto() == true) {
 			int posX  =  barco.getX();
@@ -391,11 +408,12 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private void actualizarLabelsBarcos() {
 		labelBarcosHundidos.setText("Barcos Hundidos: " + controlador.getBarcosHundidos());
 		labelBarcosRestantes.setText("Barcos Restantes: " + ( 10 - controlador.getNumeroBarco()));
-	}	
+	}	*/
+
 	private void actualizarLabelsSumaPuntaje() {
-		int puntos = controlador.getPuntaje();
-		labelProximaVidaEn.setText("Nueva Vida en: " + (300 - puntos) + "pts");
-		labelPuntosTotal.setText("Puntaje Total: " + controlador.getPuntajeFinal());
+		//int puntos = controlador.getPuntaje();
+		//labelProximaVidaEn.setText("Nueva Vida en: " + (300 - puntos) + "pts");
+		labelPuntosTotal.setText("Puntaje Total: " + controlador.getPuntaje());
 	}
 	private void actualizarLabelCantVidas() {
 		int vidas = controlador.getNumeroVidas();
@@ -403,22 +421,29 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	}
 	
 	private void finalizoElNivel() {
-		if (controlador.aumentar() == true) {
+		if (controlador.nivelSuperado() == true) {
 			JOptionPane.showMessageDialog(this.contenedor, "Nivel " + (controlador.getNumeroNivel() - 1) + " superado!");
 		} else {
-			if (controlador.gameOver() == true) {
-				JOptionPane.showMessageDialog(this.contenedor, "¡Juego terminado! Puntuacion: " + controlador.getPuntajeFinal());
+			if (controlador.getNumeroVidas() <= 0) {
+				JOptionPane.showMessageDialog(this.contenedor, "¡Juego terminado! Puntuacion: " + controlador.getPuntaje());
 				PantallaJuego.this.setVisible(false);
 				JFrame frame = new JFrame();
-				String name = JOptionPane.showInputDialog(frame, "Ingresa tu nombre para registrarlo en el ranking:");
-				ranking = new Ranking(controlador.getPuntajeFinal());
-				controlador.setNombreUsuario(name);
-				controlador.setFinalScore(controlador.getPuntajeFinal(), principalaux);
-				this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-				salirJuego();
-			} else {
-				JOptionPane.showMessageDialog(this.contenedor, "Nivel " + controlador.getNumeroNivel() + " no superado!");
-			}
+				if(controlador.entraEnTop(controlador.getPuntaje())) {
+					String name = JOptionPane.showInputDialog(frame, "Ingresa tu nombre para registrarlo en el ranking:");
+					//ranking = new Ranking(controlador.getPuntaje());
+					controlador.registrarEnRanking(controlador.getPuntaje(), name);
+					//controlador.setNombreUsuario(name);
+					//controlador.setFinalScore(controlador.getPuntaje(), principalaux);
+					this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					salirJuego();
+					
+				}
+				else
+				{
+				JOptionPane.showMessageDialog(this.contenedor, "¡Lo siento! Con tu puntaje no lograste entrar al top 20, seguí intentando.");
+				}
+				
+			} 
 		}
 		labelNivel.setText("Nivel: " + controlador.getNumeroNivel());
 	}
@@ -426,7 +451,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	public void keyPressed(KeyEvent arg0) {
 		int keyCode = arg0.getKeyCode();
 		switch(keyCode) {
-			case KeyEvent.VK_UP:
+			/*case KeyEvent.VK_UP:
 				this.potencia = this.potencia + 1;
 				if (this.potencia > 5) {
 					this.potencia = 5;
@@ -441,33 +466,46 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				}
 				labelPotencia.setText("Potencia: " + this.potencia + "/5");
 				break;
-
+			*/
 			case KeyEvent.VK_LEFT:
-				this.puntomira.x = this.puntomira.x - 50;
-				if (this.puntomira.x < 0) {
-					this.puntomira.x = 0;
+				controlador.controlarBarra(false);
+				if (controlador.getPosicionXBarra() < 0) {
+					controlador.setPosicionXBarra(0);
 				}
-				this.mira.setBounds(this.puntomira.x, 50, 50, 50);
+				mostrarBarra();
 				break;
 
 			case KeyEvent.VK_RIGHT :
-				this.puntomira.x = this.puntomira.x + 50;
-				if (this.puntomira.x > 960) {
-					this.puntomira.x = 960;
+				controlador.controlarBarra(true);
+				if (controlador.getPosicionXBarra() > 960) {
+					controlador.setPosicionXBarra(960);
 				}
-				this.mira.setBounds(this.puntomira.x, 50, 50, 50);
+				mostrarBarra();
 				break;
 
 			case KeyEvent.VK_SPACE :
-				Point fin = new Point(this.puntomira.x, 0);
-				boolean disparo = controlador.dispararBarco(fin, this.potencia);
-				if (disparo) {
-					tiempoRecargaTimer.restart();
-				}else
-					System.out.println("Esta recargando el disparo ");
-				break;
+				if(controlador.estadoPartida() == false) {
+					controlador.iniciarJuego();
+					controlador.inicioBola();
+					crearTempMovimientoBola();
+					break;
+				}
+				
 		}
 	}
+	private void mostrarBarra() {
+		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\barra.png";
+		//Rectangle bounds = cañon.getPosicion();
+		if (this.barra == null ){
+			this.barra = new JLabel();
+		}
+		this.barra.setBounds(controlador.getPosicionXBarra(),controlador.getPosicionYBarra(), 100, 50);
+		this.barra.setIcon(new ImageIcon(urlImagen));
+		this.barra.setVisible(true);
+		contenedor.add(this.barra);
+
+	}
+	
 
 	@Override
 	public void keyReleased(KeyEvent e) {

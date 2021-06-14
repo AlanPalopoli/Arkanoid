@@ -59,6 +59,9 @@ public class Ladrillo {
 	public void resetearLadrillo() {
 		this.destruido = false;
 	}
+	public boolean estadoLadrillo() {
+		return this.destruido;
+	}
 	
 
 }
