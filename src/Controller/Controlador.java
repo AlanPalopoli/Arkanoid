@@ -2,6 +2,7 @@ package Controller;
 import java.awt.Rectangle;
 import java.util.Random;
 
+
 import Negocios.*;
 
 public class Controlador {
@@ -158,6 +159,9 @@ public class Controlador {
 		return this.partida.estadoLadrillo(id);
 	}
 	
+	public boolean getEstadoChoqueBola() {
+		return this.partida.getChoqueBola();
+	}
 	/*-----------SETTERS------------*/
 	
 	public void setPosicionXBarra(int pos) {
@@ -170,6 +174,10 @@ public class Controlador {
 	
 	public void setAnchoBarra(int pos) {
 		this.barra.setAncho(pos);
+	}
+	
+	public void setEstadoChoqueBola(boolean estado) {
+		this.partida.setChoqueBola(estado);
 	}
 	
 	
