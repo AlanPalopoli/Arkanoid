@@ -251,7 +251,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 							}
 						}
 						crearTempChoqueBola1();
-						crearTempChoqueBola2();
+						//crearTempChoqueBola2();
 						finalizoElNivel();
 					}
 			}
