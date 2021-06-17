@@ -12,7 +12,7 @@ public class Controlador {
 	private String nombreJugador;
 	
 	public Controlador(){
-		this.barra = new Barra(380, 500, 100, 50, 30);
+		this.barra = new Barra(380, 500, 100, 20, 30);
 		this.partida = new Partida(this.barra);
 		this.ranking = new Ranking();
 	}
@@ -159,7 +159,7 @@ public class Controlador {
 		return this.partida.estadoLadrillo(id);
 	}
 	
-	public boolean getEstadoChoqueBola() {
+	public int getEstadoChoqueBola() {
 		return this.partida.getChoqueBola();
 	}
 	/*-----------SETTERS------------*/
@@ -176,8 +176,8 @@ public class Controlador {
 		this.barra.setAncho(pos);
 	}
 	
-	public void setEstadoChoqueBola(boolean estado) {
-		this.partida.setChoqueBola(estado);
+	public void setEstadoChoqueBola(int valor) {
+		this.partida.setChoqueBola(valor);
 	}
 	
 	

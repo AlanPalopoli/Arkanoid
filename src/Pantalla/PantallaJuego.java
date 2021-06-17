@@ -63,7 +63,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private Timer labelsTimer;
 	//private Timer tiempoRecargaTimer;
 	private Timer colisionTimer;
-	private Timer choqueBolaTimer;
+	private Timer choqueBolaTimer1;
+	private Timer choqueBolaTimer2;
 	
 	private Container contenedor;
 	//private String urlImagenMira = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\mira.png";
@@ -249,7 +250,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 								}
 							}
 						}
-						crearTempChoqueBola();
+						crearTempChoqueBola1();
+						crearTempChoqueBola2();
 						finalizoElNivel();
 					}
 			}
@@ -257,15 +259,26 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		this.colisionTimer = new Timer(100, colision);
 		this.colisionTimer.start();
 	}
-	private void crearTempChoqueBola() {
-		if(controlador.getEstadoChoqueBola() == true) {
+	private void crearTempChoqueBola1() {
+		if(controlador.getEstadoChoqueBola() != 0) {
 			ActionListener chocoBola = new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-						controlador.setEstadoChoqueBola(false);
+						controlador.setEstadoChoqueBola(0);
 				}
 			};
-			this.choqueBolaTimer = new Timer(1000, chocoBola);
-			this.choqueBolaTimer.start();
+			this.choqueBolaTimer1 = new Timer(1000, chocoBola);
+			this.choqueBolaTimer1.start();
+		}
+	}
+	private void crearTempChoqueBola2() {
+		if(controlador.getEstadoChoqueBola() != 0) {
+			ActionListener chocoBola = new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+						controlador.setEstadoChoqueBola(0);
+				}
+			};
+			this.choqueBolaTimer2 = new Timer(1000, chocoBola);
+			this.choqueBolaTimer2.start();
 		}
 	}
 	
