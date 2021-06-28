@@ -79,7 +79,7 @@ public class Controlador {
 	
 
 	public boolean nivelSuperado() {
-		boolean aumenta = this.partida.getLadrillosDestruidos() == 20;
+		boolean aumenta = this.partida.getLadrillosDestruidos() == 25;
 		if(aumenta) {
 			this.partida.aumentarNivel();
 			this.partida.subirVelocidad();
@@ -122,6 +122,10 @@ public class Controlador {
 		return this.partida.getAnchoLadrillo(id);
 	}
 	
+	public void randomInicioBola() {
+		this.partida.randomInicioBola();
+	}
+	
 	/*-----------GETTERS------------*/
 	public int getNumeroNivel() {
 		return this.partida.getNivel();
@@ -161,6 +165,10 @@ public class Controlador {
 	
 	public int getEstadoChoqueBola() {
 		return this.partida.getChoqueBola();
+	}
+	
+	public int getVelocidadBola() {
+		return this.partida.getVelocidadBola();
 	}
 	/*-----------SETTERS------------*/
 	

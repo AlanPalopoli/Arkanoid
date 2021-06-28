@@ -50,7 +50,13 @@ public class Bola {
 	}
 
 	public void setAnguloMovimiento(double angulo) {
-		this.anguloMovimiento += angulo;
+		this.anguloMovimiento = angulo;
+		if(this.anguloMovimiento< 0) {
+			this.setAnguloMovimiento(360+this.anguloMovimiento);
+		}
+		else if (this.anguloMovimiento>360) {
+			this.setAnguloMovimiento(this.anguloMovimiento-360);
+		}
 	}
 	
 	public void setPosicionInicio(int xInicio, int yInicio) {

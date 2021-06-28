@@ -49,6 +49,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	//private int potencia = 1;
 	//private boolean explotando = false;
 	
+	private boolean iniciado = false;
+	
 	Image imagenFondoJuego;
 	URL fondoJuego;
 	private Controlador controlador;
@@ -65,6 +67,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private Timer colisionTimer;
 	private Timer choqueBolaTimer1;
 	private Timer choqueBolaTimer2;
+	private int pauseJUEGO = 0;
 	
 	private Container contenedor;
 	//private String urlImagenMira = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\mira.png";
@@ -166,12 +169,16 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				principalaux.setVisible(true);
 				PantallaJuego.this.setVisible(false);
 				//PantallaJuego.this.tiempoRecargaTimer.stop();
-				if((PantallaJuego.this.movimientoBolaTimer) != null)
-					PantallaJuego.this.movimientoBolaTimer.stop();
+				//if((PantallaJuego.this.movimientoBolaTimer) != null)
+				
 				//PantallaJuego.this.fueraContainerTimer.stop();
 				//PantallaJuego.this.explosionGifTimer.stop();
-				PantallaJuego.this.labelsTimer.stop();
-				PantallaJuego.this.colisionTimer.stop();
+				//PantallaJuego.this.labelsTimer.stop();
+				PantallaJuego.this.colisionTimer.stop();	
+				PantallaJuego.this.movimientoBolaTimer.stop();
+				controlador.moverBola();
+				System.out.println(controlador.getVelocidadBola());
+				controlador.revisarColision();
 				//guardarPuntos();
 				salirJuego();
 			}
@@ -181,6 +188,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 
 		crearTempColision();
 		crearTempLabels();
+		crearTempChoqueBola1();
 		//crearTempFueraContainer();
 		//crearTempRecarga();
 		//crearTempExplosion();
@@ -230,6 +238,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private void crearTempLabels() {
 		ActionListener labelLabel = new ActionListener() {
 			public void actionPerformed(ActionEvent l) {
+				System.out.println(""+ controlador.estadoPartida()+ pauseJUEGO);
 				actualizarLabelCantVidas();
 				actualizarLabelsSumaPuntaje();
 			}
@@ -250,7 +259,6 @@ public class PantallaJuego extends JFrame implements KeyListener{
 								}
 							}
 						}
-						crearTempChoqueBola1();
 						//crearTempChoqueBola2();
 						finalizoElNivel();
 					}
@@ -264,6 +272,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			ActionListener chocoBola = new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 						controlador.setEstadoChoqueBola(0);
+						//System.out.println("HOLA ESTOY ENTRANDO ACA");
 				}
 			};
 			this.choqueBolaTimer1 = new Timer(1000, chocoBola);
@@ -285,7 +294,11 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private void crearTempMovimientoBola() {
 		ActionListener movElem = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				moverBola();
+				//System.out.println(""+ controlador.estadoPartida()+ pauseJUEGO);
+				if(controlador.estadoPartida() || pauseJUEGO == 0) {
+					moverBola();
+					System.out.println("ENTRO EN MOVERBOLA");
+				}
 			}
 		};
 		this.movimientoBolaTimer = new Timer(10, movElem);
@@ -350,7 +363,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 
 	private void mostrarBola() {
 		
-			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\bola.png";
+			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\bola.PNG";
 			Rectangle bounds = controlador.getPosicionBola();
 			//System.out.println("La posicion de la bola es: " + controlador.getPosicionBola());
 			if (this.bola == null) {
@@ -366,7 +379,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			}
 	}
 	private void mostrarLadrillo() {
-		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\ladrillo.png";
+		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\ladrillo.PNG";
 		int sizeArray = 0;
 		int sizeArray2 = controlador.sizeLadrillos(sizeArray);
 		for (int i=0;i<sizeArray2;i++){
@@ -520,17 +533,38 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				break;
 
 			case KeyEvent.VK_SPACE :
+				System.out.println("SPACEEE");
+				System.out.println(controlador.estadoPartida());
 				if(controlador.estadoPartida() == false) {
-					controlador.iniciarJuego();
-					controlador.inicioBola();
-					crearTempMovimientoBola();
-					break;
+					//System.out.println("ENTRE ACA");
+					if(!iniciado) {
+						System.out.println("ENTRE ACA AHORA");
+						controlador.controlDePausa();
+						controlador.inicioBola();
+						crearTempMovimientoBola();
+						this.iniciado = true;
+						break;
+					} else {
+						controlador.controlDePausa();
+						pauseJUEGO = 0;
+						System.out.println("HOLA ACA ESTOY");
+					}
+				}
+				
+			case KeyEvent.VK_P :
+				if(controlador.estadoPartida()) {
+					if(iniciado) {
+						controlador.controlDePausa();
+						this.pauseJUEGO = 1;
+						
+						
+					}
 				}
 				
 		}
 	}
 	private void mostrarBarra() {
-		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\barra.png";
+		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\barra.PNG";
 		//Rectangle bounds = cañon.getPosicion();
 		if (this.barra == null ){
 			this.barra = new JLabel();
