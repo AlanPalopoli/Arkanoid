@@ -93,20 +93,6 @@ public class Partida {
 		}
 	}
 	
-	
-	/*public boolean chocoLadrillo(Ladrillo ladrillo) {
-		if (ladrillo != null)
-		{
-			int posBolaXAumentada = (int)(this.bola.getPosicionX() + 2*this.bola.getRadio());
-			int posBolaXDisminuida = (int)(this.bola.getPosicionX() ) -89 ;
-			int posBolaYAumentada = (int)(this.bola.getPosicionY() + 2* this.bola.getRadio()) ;
-			int posBolaYDisminuida = (int)(this.bola.getPosicionY()) -20;
-			return (ladrillo.getPosicionX()<=posBolaXAumentada && ladrillo.getPosicionX()>=posBolaXDisminuida && ladrillo.getPosicionY()<=posBolaYAumentada && ladrillo.getPosicionY()>=posBolaYDisminuida);
-		}
-		else 
-			return false;
-	}*/
-	
 	public boolean chocoBarra() {
 		return (this.barra.getPosicionX()<=this.bola.getPosicionX()+2*this.bola.getRadio() &&  this.barra.getPosicionX()>=this.bola.getPosicionX()-this.barra.getAncho() &&this.barra.getPosicionY()<=(this.bola.getPosicionY() + this.bola.getRadio()));
 	}
@@ -121,10 +107,6 @@ public class Partida {
 	
 	public boolean chocoPiso() {
 		boolean choco = this.bola.getPosicionY()>this.barra.getPosicionY();
-																									//this.xMayor = 870; Pared Derecha  //ANCHO=700 LARGO=500
-																									//this.xMenor = 0;	 Mueve derecha //Pared Izquierda
-																									//this.yMayor = 1000; // Piso
-																									//this.yMenor = 0; //Techo
 		if (choco) {
 			this.disminuyoVida();
 		}
@@ -136,24 +118,16 @@ public class Partida {
 			if(esta4toCuadrante()) {
 				if (this.Variante) {
 					this.bola.setAnguloMovimiento(270-(360-this.bola.getAnguloMovimiento()));
-					System.out.println("ENTRO EN COLISION TECHO 4to VARIANTE");
 				}
 				else {
-					System.out.println("ENTRO EN COLISION TECHO 4to");
 					this.bola.setAnguloMovimiento(270-(360-this.bola.getAnguloMovimiento()));
 					}
-				/*int posx = (int) this.bola.getPosicionX();
-				posx *= -1;
-				this.bola.setPosicionX(posx);*/
-				//System.out.println("ENTRO EN COLISION TECHO PRIMERO");
 			}
 			else if(esta1erCuadrante()) {
 				if(this.Variante) {
 					this.bola.setAnguloMovimiento(180-this.bola.getAnguloMovimiento());
-					System.out.println("ENTRO EN COLISION TECHO 1er VARIANTE");
 				}
 				else {
-					System.out.println("ENTRO EN COLISION TECHO 1er ");
 					this.bola.setAnguloMovimiento(180-this.bola.getAnguloMovimiento());
 				}
 			}
@@ -169,104 +143,41 @@ public class Partida {
 	
 	public void cambiarAnguloBarra() {
 		if (this.getChoqueBola() != 2) {
-			System.out.println(this.bola.getAnguloMovimiento());
 			if(esta3erCuadrante() && this.bola.getPosicionX()<= this.barra.getPosicionX()) {
-				System.out.println("1");
 				this.bola.setAnguloMovimiento(360-(this.bola.getAnguloMovimiento()-180));//-90	
 			}
 			else if (esta3erCuadrante() && this.bola.getPosicionX()>this.barra.getPosicionX()) {
 				this.bola.setAnguloMovimiento(360-(this.bola.getAnguloMovimiento()-180));//-60
-				System.out.println("2");
 			}
 			else if (esta2doCuadrante() && this.bola.getPosicionX()<= this.barra.getPosicionX()) {
 				this.bola.setAnguloMovimiento((180-this.bola.getAnguloMovimiento()- 90));//90-
-				System.out.println("3");
 			}
 			else if (esta2doCuadrante() && this.bola.getPosicionX()>this.barra.getPosicionX()) {
 				this.bola.setAnguloMovimiento((180-this.bola.getAnguloMovimiento()));//60-
-				System.out.println("4");
 			}
 			this.setChoqueBola(2);
 		}
-		System.out.println(this.bola.getAnguloMovimiento());
 	}
 
 	public void cambiarAnguloPared() {
 		if (this.getChoqueBola() != 3) {
 			if(esta1erCuadrante()) {
 				this.bola.setAnguloMovimiento(360-(this.bola.getAnguloMovimiento()));
-				System.out.println("ENTRO EN COLISION PARED PRIMER");
 			}
 			else if (esta2doCuadrante()) {
 				this.bola.setAnguloMovimiento(180+(180-this.bola.getAnguloMovimiento()));
-				System.out.println("ENTRO EN COLISION PARED SEGUNDO");
 			}
 			else if (esta3erCuadrante()) {
 				this.bola.setAnguloMovimiento(180-(this.bola.getAnguloMovimiento()-180));
-				System.out.println("ENTRO EN COLISION PARED TERCER");
 			}
 			else if (esta4toCuadrante()) {
 				this.bola.setAnguloMovimiento(360-this.bola.getAnguloMovimiento());
-				System.out.println("ENTRO EN COLISION PARED CUARTO");
 			}
 			this.setChoqueBola(3);
 		}
 	}
-	
-	/*public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
-	//Random num = new Random();
-	System.out.println(this.bola.getAnguloMovimiento());
-	int posBolaXAumentada = (int)(this.bola.getPosicionX() + 2*this.bola.getRadio()); 				// izquierda
-	int posBolaXDisminuida = (int)(this.bola.getPosicionX() - ladrillo.getAncho()) ;				// derecha
-	int posBolaYAumentada = (int)(this.bola.getPosicionY() + 2*this.bola.getRadio());				// arriba
-	int posBolaYDisminuida = (int)(this.bola.getPosicionY()) - ladrillo.getAlto();					// abajo
-	// (ladrillo.getPosicionX()>=posBolaXDisminuida && ladrillo.getPosicionX()<=posBolaXAumentada && ladrillo.getPosicionY()>=posBolaYDisminuida && ladrillo.getPosicionY()>=posBolaYAumentada);
-	int random = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
-	System.out.println(random);
-	if(esta1erCuadrante()) {
-		System.out.println("Angulo PRIMER cuadrante: ");  
-		//----ME QUEDE ACA, LA BOLA LE PEGA AL LADRILLO  Y LO BORRA PERO NO CAMBIA EL ANGULO POR QUE NO ENTRA EN EL PRIMER IF DE CADA CUADRANTE QUE CHEQUEA POS+ANCHO/ALTO
-		if(posBolaXAumentada >= ladrillo.getPosicionX() && posBolaXDisminuida <= ladrillo.getPosicionX() && ladrillo.getPosicionY() == posBolaYDisminuida){
-			System.out.println("1 Abajo");
-			this.bola.setAnguloMovimiento(180-this.bola.getAnguloMovimiento()+(random));
-		} else{
-			this.bola.setAnguloMovimiento(360+(random-this.bola.getAnguloMovimiento()));
-			System.out.println("1 Costado");}
-	} else if (esta2doCuadrante()) {
-		System.out.println("Angulo SEGUNDO cuadrante: ");
-		if(posBolaXAumentada >= ladrillo.getPosicionX() && posBolaXDisminuida <= ladrillo.getPosicionX() && ladrillo.getPosicionY() == posBolaYAumentada){
-			System.out.println("2 Arriba");
-			this.bola.setAnguloMovimiento(180-this.bola.getAnguloMovimiento()+(random));
-		} else {
-			System.out.println("2 Costado");
-			this.bola.setAnguloMovimiento(180+(180-this.bola.getAnguloMovimiento())+(random));}
-	} else if (esta3erCuadrante()) {
-		System.out.println("Angulo TERCER cuadrante: ");
-		if(posBolaXAumentada >= ladrillo.getPosicionX() && posBolaXDisminuida <= ladrillo.getPosicionX() && ladrillo.getPosicionY() == posBolaYAumentada){
-			System.out.println("3 Arriba");
-			System.out.println(this.bola.getAnguloMovimiento());
-			this.bola.setAnguloMovimiento(360-(this.bola.getAnguloMovimiento()-180)+(random));
-			System.out.println(this.bola.getAnguloMovimiento());
-		} else {
-			System.out.println("3 Costado");
-			this.bola.setAnguloMovimiento(180-(this.bola.getAnguloMovimiento()-180)-(random));}
-	} else if (esta4toCuadrante()) {
-		System.out.println("Angulo CUARTO cuadrante: ");
-		if(posBolaXAumentada >= ladrillo.getPosicionX() && posBolaXDisminuida <= ladrillo.getPosicionX() && ladrillo.getPosicionY() == posBolaYDisminuida){
-			System.out.println("4 Abajo");
-			System.out.println(this.bola.getAnguloMovimiento());
-			this.bola.setAnguloMovimiento(180+(360-this.bola.getAnguloMovimiento())-(random));
-			System.out.println(this.bola.getAnguloMovimiento());
-		} else {
-			System.out.println("4 Costado");
-			this.bola.setAnguloMovimiento(360-this.bola.getAnguloMovimiento()+(random));}
-	}
-	System.out.println(this.bola.getAnguloMovimiento());
-}*/
 
 public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
-	System.out.println(this.bola.getPosicionY());
-	System.out.println(ladrillo.getPosicionY());
 	double indice = 3.6;
 	if(esta1erCuadrante()) {
 		if(this.bola.getPosicionY() - this.bola.getRadio() - ladrillo.getAlto()/2 - this.bola.getVelocidad() * indice <= ladrillo.getPosicionY() && this.bola.getPosicionY() - this.bola.getRadio() - ladrillo.getAlto()/2 + this.bola.getVelocidad() * indice >= ladrillo.getPosicionY()) {
@@ -300,21 +211,17 @@ public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 		boolean colisiono = false;
 		if (chocoBarra()) {
 			cambiarAnguloBarra();
-			//System.out.println("ENTRO EN COLISION BARRA");
 			colisiono = true;
 		}
 		else if (chocoTecho()) {
 			cambiarAnguloTecho();
-			//System.out.println("ENTRO EN COLISION TECHO");
 			colisiono = true;
 		}
 		else if (chocoPared()) {
 			cambiarAnguloPared();
-			//System.out.println("ENTRO EN COLISION pared");
 			colisiono = true;
 		}
-		else if(chocoPiso()) {
-			//System.out.println("ENTRO EN COLISION PISO");						
+		else if(chocoPiso()) {					
 			resetearBola();
 			resetearBarra();
 			randomInicioBola();
@@ -331,7 +238,6 @@ public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 				
 			}
 			if(choco) {
-				//System.out.println("CHOQUE LADRILLO: ENTRO ACA");
 				cambiarAnguloLadrillo(this.ladrillos.get(cont-1));
 				this.setPuntos(this.getPuntos() + this.ladrillos.get(cont-1).destruir());
 				colisiono = true;
@@ -376,15 +282,9 @@ public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 	
 	public void movimientoBola() {
 		double angulo = this.bola.getAnguloMovimiento();
-		//System.out.println("Angulo: " + this.bola.getAnguloMovimiento());
-		//System.out.println("Angulo : " + angulo);
 		
 		double xVelocidad = (this.bola.getVelocidad())*1 * Math.sin(Math.toRadians(angulo));
 		double yVelocidad =  (this.bola.getVelocidad())*1 * Math.cos(Math.toRadians(angulo));
-		//System.out.println("Angulo 360 X: " + (this.bola.getVelocidad())*1 * Math.sin(360));
-		//System.out.println("Angulo 360 Y: " + (this.bola.getVelocidad())*1 * Math.cos(360));
-		//System.out.println("Angulo EQUIS: " + xVelocidad);
-		//System.out.println("Angulo Y: " + yVelocidad);
 		double posX = this.bola.getPosicionX();
 		double posY = this.bola.getPosicionY();
 
@@ -397,10 +297,6 @@ public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 		}
 		posY = posY - yVelocidad;
 		this.bola.setPosicionY(posY);
-		//System.out.println("PosX: " + posX);
-		//System.out.println("PosY: " + posY);
-		//System.out.println("Variante: " + this.Variante);
-		//System.out.println("Estado choque bola: " + this.choqueBola);
 	}
 	
 	public void subirVelocidad() {
@@ -408,13 +304,9 @@ public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 	}
 	
 	public void randomInicioBola() {
-		//Random num = new Random();
-		//int angulo = (num.nextInt((0-180)+1)+0);
-		//667 ---- 1000X,602Y.. problema timer
+
 		int posX = ThreadLocalRandom.current().nextInt(0, 870 + 1);
 		int posY = ThreadLocalRandom.current().nextInt(0, 1000 + 1);
-		//System.out.println("PosX" + posX);
-		//System.out.println("PosY" + posY);
 		if(posX >= 400) {
 			this.Variante = false;
 		}
@@ -423,7 +315,6 @@ public void cambiarAnguloLadrillo(Ladrillo ladrillo) {
 		
 		this.ubicacionFinalBolaX = posX;
 		double angulo =  Math.toDegrees(Math.atan2(Math.abs(posX - this.bola.getPosicionX()), Math.abs(this.bola.getPosicionY()- posY )));
-		//.out.println("Angulo INICIO" + angulo);
 		 
 		this.bola.setAnguloMovimiento(angulo);
 		this.bola.setPosicionInicio((int)this.bola.getPosicionX(), (int)this.bola.getPosicionY());

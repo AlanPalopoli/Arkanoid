@@ -50,7 +50,6 @@ public class PantallaJuego extends JFrame implements KeyListener{
 	private Timer colisionTimer;
 	private Timer choqueBolaTimer1;
 	private Timer choqueBolaTimer2;
-	private int pauseJUEGO = 0;
 	private int finalizoJuego = 0;
 	
 	private Container contenedor;
@@ -82,39 +81,20 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		labelNivel.setBounds(20, 5, 75, 25);
 		labelVidas.setBounds(370, 5, 140, 25);
 		labelPuntosTotal.setBounds(785, 5, 150, 25);
-		//labelPotencia.setBounds(800, 525, 150, 25);
-		//labelBarcosHundidos.setBounds(580, 5, 150, 25);
-		//labelBarcosRestantes.setBounds(750, 5, 150, 25);
 		botonSalir.setBounds(20, 525, 60, 25);
-
-		//bola.setBounds(500, 600, 50, 50);
-		//barra.setBounds(500, 75, 100, 50);
-		//ladrillos.setBounds(500, 60, 60, 60);
-
-		//mira.setIcon(new ImageIcon(urlImagenMira));
 
 		labelNivel.setText("Nivel: " + controlador.getNumeroNivel());
 		labelVidas.setText("Cantidad de Vidas: " + controlador.getNumeroVidas());
-		//labelProximaVidaEn.setText("Nueva Vida en: " + (300 - controlador.getPuntaje()) + "pts");
-		//labelBarcosHundidos.setText("Barcos Hundidos: " + controlador.getBarcosHundidos());
 		labelPuntosTotal.setText("Puntaje Total: " + controlador.getPuntaje());
-		//labelBarcosRestantes.setText("Barcos Restantes: " + ( 10 - controlador.getNumeroBarco()));
-		//labelPotencia.setText("Potencia: " + potencia + "/5");
 
 
-		//barco.setVisible(true);
 
 		botonSalir.setFocusable(false);
 
 		contenedor.add(labelNivel);
 		contenedor.add(labelVidas);
-		//contenedor.add(labelProximaVidaEn);
 		contenedor.add(labelPuntosTotal);
-		//contenedor.add(labelBarcosHundidos);
-		//contenedor.add(labelBarcosRestantes);
-		//contenedor.add(labelPotencia);
 		contenedor.add(barra);
-		//contenedor.add(ladrillos);
 		contenedor.add(bola);
 		contenedor.add(botonSalir);
 		contenedor.add(panel);
@@ -125,10 +105,6 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		mostrarBarra();
 		mostrarLadrillo();
 		mostrarBola();
-		//inicializar labels de ladrillos
-		
-	
-		//mostrarCañon(controlador.nuevoCañon(true));
 		
 	}
 	@SuppressWarnings("serial")
@@ -147,18 +123,10 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			public void actionPerformed(ActionEvent e) {
 				principalaux.setVisible(true);
 				PantallaJuego.this.setVisible(false);
-				//PantallaJuego.this.tiempoRecargaTimer.stop();
-				//if((PantallaJuego.this.movimientoBolaTimer) != null)
-				
-				//PantallaJuego.this.fueraContainerTimer.stop();
-				//PantallaJuego.this.explosionGifTimer.stop();
 				PantallaJuego.this.labelsTimer.stop();
 				PantallaJuego.this.colisionTimer.stop();	
 				PantallaJuego.this.movimientoBolaTimer.stop();
-				//controlador.moverBola();
-				System.out.println(controlador.getVelocidadBola());
 				controlador.revisarColision();
-				//guardarPuntos();
 				salirJuego();
 			}
 		});
@@ -168,9 +136,6 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		crearTempColision();
 		crearTempLabels();
 		crearTempChoqueBola1();
-		//crearTempFueraContainer();
-		//crearTempRecarga();
-		//crearTempExplosion();
 	}
 	
 
@@ -183,52 +148,15 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		controlador.resetearBarra();
 	}
 	
-	/*private void crearTempRecarga() {
-		ActionListener labelMisil = new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.setRecargar(true);
-			}
-		};
-		int pausa = (int) (this.controlador.getTiempoRecarga() * 1000);
-		this.tiempoRecargaTimer = new Timer(pausa, labelMisil);
-		this.tiempoRecargaTimer.start();
-	}*/
-	
-	/*private void crearTempExplosion() {
-		ActionListener gifExplosion = new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (explotando == true) {
-					explotando = false;
-					explosion.setVisible(false);
-					PantallaJuego.this.explosionGifTimer.stop();
-				}
-			}
-		};
-		this.explosionGifTimer = new Timer(1000, gifExplosion);
-		this.explosionGifTimer.start();
-	}*/
-	
-	/*private void crearTempFueraContainer() {
-		ActionListener labelVision = new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.revisarColision();
-			}
-		};
-		this.fueraContainerTimer = new Timer(10, labelVision);
-		this.fueraContainerTimer.start();
-	}*/
-
 	private void crearTempLabels() {
 		ActionListener labelLabel = new ActionListener() {
 			public void actionPerformed(ActionEvent l) {
-				//System.out.println(""+ controlador.estadoPartida()+ pauseJUEGO);
 				actualizarLabelCantVidas();
 				actualizarLabelsSumaPuntaje();
 				finalizoElNivel();
 				if(controlador.estadoPartida() == 4) {
 					mostrarBola();
 					mostrarBarra();
-					//controlador.setEstadoPartida(2);
 				}
 			}
 		};
@@ -248,7 +176,6 @@ public class PantallaJuego extends JFrame implements KeyListener{
 								}
 							}
 						}
-						//crearTempChoqueBola2();
 					}
 			}
 		};
@@ -260,32 +187,18 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			ActionListener chocoBola = new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 						controlador.setEstadoChoqueBola(0);
-						//System.out.println("HOLA ESTOY ENTRANDO ACA");
 				}
 			};
 			this.choqueBolaTimer1 = new Timer(1000, chocoBola);
 			this.choqueBolaTimer1.start();
 		}
 	}
-	private void crearTempChoqueBola2() {
-		if(controlador.getEstadoChoqueBola() != 0) {
-			ActionListener chocoBola = new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-						controlador.setEstadoChoqueBola(0);
-				}
-			};
-			this.choqueBolaTimer2 = new Timer(1000, chocoBola);
-			this.choqueBolaTimer2.start();
-		}
-	}
 	
 	private void crearTempMovimientoBola() {
 		ActionListener movElem = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//System.out.println(""+ controlador.estadoPartida()+ pauseJUEGO);
 				if(controlador.estadoPartida() == 1 || controlador.estadoPartida() == 3) {
 					moverBola();
-					//System.out.println("ENTRO EN MOVERBOLA");
 				}
 			}
 		};
@@ -298,62 +211,10 @@ public class PantallaJuego extends JFrame implements KeyListener{
 		mostrarBola();
 	}
 
-
-	/*private void moverMisil() {
-		Misil misil = controlador.moverMisil();
-		mostrarMisil(misil);
-	}*/
-
-	
-/*private void mostrarExplosion(int x, int y) {
-		if (explosion != null) {
-			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\explosion.gif";
-			if (this.explosion == null ){
-				this.explosion = new JLabel();
-			}
-			explotando = true;
-			this.explosion.setBounds( x, y, 216, 122);
-			this.explosion.setIcon(new ImageIcon(urlImagen));
-			explosionGifTimer.restart();
-			this.explosion.setVisible(true);
-			try {
-				contenedor.add(this.explosion);
-			} catch(NullPointerException e){
-				System.out.print("NullPointer por borrado de explosion ");
-			}
-		}
-	}*/
-
-	
-	/*private void mostrarBarco(Barco barco) {
-		if (barco != null) {
-			Rectangle bounds = barco.getPosicion();
-			if (this.barco == null ){
-				this.barco = new JLabel();
-			}
-			this.barco.setBounds(bounds.x, bounds.y, 216,122);
-			if (barco.getUbicacionBarco() == true) {
-				String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\barcoDerecha.png";
-				this.barco.setIcon(new ImageIcon(urlImagen));
-			}
-			else {
-				String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP_Juegos_BattleShips\\src\\image\\barcoIzquierda.png";
-				this.barco.setIcon(new ImageIcon(urlImagen));
-			}
-			this.barco.setVisible(true);
-			try {
-				contenedor.add(this.barco);
-			} catch(NullPointerException e){
-				System.out.print("NullPointer por borrado de barco ");
-			}
-		}
-	}*/
-
 	private void mostrarBola() {
 		
 			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\bola.PNG";
 			Rectangle bounds = controlador.getPosicionBola();
-			//System.out.println("La posicion de la bola es: " + controlador.getPosicionBola());
 			if (this.bola == null) {
 				this.bola = new JLabel();
 			}
@@ -381,71 +242,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
         }
     }
 		
-		
-	
-	/*private void MisilFueraDeContainer() {
-		Rectangle posicion = controlador.getPosicionMisil();
-		if (this.misil != null && posicion != null) {
-			if (fueraDeContainer(posicion) == true) {
-				this.controlador.borrarMisil();
-			}
-		}
-	}
-
-	private void BarcoFueraDeContainer() {
-		Rectangle posicion = controlador.posicionBarco();
-		boolean direccion = controlador.getDireccion();
-		if (this.barco != null && posicion != null) {
-			if (this.barcoAFueraDeContainer(direccion, posicion)) {
-				this.controlador.borrarBarco();
-			}
-		}
-	}
-	private boolean fueraDeContainer(Rectangle posicion) {
-		int arriba = (int) posicion.getMinY();
-		int abajo = (int) posicion.getMaxY();
-		int izq = (int) posicion.getMinX();
-		int der = (int) posicion.getMaxX();
-		if (izq > 900 || der < 0 || arriba > 600 || abajo < 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private boolean barcoAFueraDeContainer(boolean direccion, Rectangle posicion) {
-		int izq = (int) posicion.getMinX();
-		int der = (int) posicion.getMaxX();
-		if (direccion == true) {
-			return izq > 900;
-		} else {
-			return der < -200;
-			
-		}
-	}
-	*/
-	/*
-	private void colisiono() {
-		if (controlador.verificarImpacto() == true) {
-			int posX  =  barco.getX();
-			int posY = barco.getY();
-			this.misil.setVisible(false);
-			this.barco.setVisible(false);
-			if (explotando == false)
-				mostrarExplosion(posX, posY);
-			this.misil = null;
-			this.barco = null;
-		}
-		actualizarLabelsBarcos();
-	}
-	private void actualizarLabelsBarcos() {
-		labelBarcosHundidos.setText("Barcos Hundidos: " + controlador.getBarcosHundidos());
-		labelBarcosRestantes.setText("Barcos Restantes: " + ( 10 - controlador.getNumeroBarco()));
-	}	*/
-
 	private void actualizarLabelsSumaPuntaje() {
-		//int puntos = controlador.getPuntaje();
-		//labelProximaVidaEn.setText("Nueva Vida en: " + (300 - puntos) + "pts");
 		labelPuntosTotal.setText("Puntaje Total: " + controlador.getPuntaje());
 	}
 	private void actualizarLabelCantVidas() {
@@ -467,18 +264,13 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			
 		} else {
 			if (controlador.getNumeroVidas() == 0) {
-				
-				System.out.println("Entro en finalizo nivel");
 				JOptionPane.showMessageDialog(this.contenedor, "¡Juego terminado! Puntuacion: " + controlador.getPuntaje());
 				PantallaJuego.this.setVisible(false);
 				this.principalaux.setVisible(true);
 				JFrame frame = new JFrame();
 				if(controlador.entraEnTop(controlador.getPuntaje())) {
 					String name = JOptionPane.showInputDialog(frame, "Ingresa tu nombre para registrarlo en el ranking:");
-					//ranking = new Ranking(controlador.getPuntaje());
 					controlador.registrarEnRanking(controlador.getPuntaje(), name);
-					//controlador.setNombreUsuario(name);
-					//controlador.setFinalScore(controlador.getPuntaje(), principalaux);
 					this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 					
 				}
@@ -519,12 +311,8 @@ public class PantallaJuego extends JFrame implements KeyListener{
 				}
 			} else if (keyCode == KeyEvent.VK_SPACE)
 			{
-				System.out.println("Velocidad: " + controlador.getVelocidadBola());
-				System.out.println(controlador.estadoPartida());
 				if(controlador.estadoPartida() == 0) {
-					//System.out.println("ENTRE ACA");
 					if(!iniciado) {
-						//System.out.println("ENTRE ACA AHORA");
 						controlador.controlDePausa();
 						controlador.inicioBola();
 						crearTempMovimientoBola();
@@ -532,28 +320,18 @@ public class PantallaJuego extends JFrame implements KeyListener{
 					}
 				}else if (controlador.estadoPartida() == 2 || controlador.estadoPartida() == 4) {
 					controlador.controlDePausa();
-					pauseJUEGO = 0;
-					//System.out.println("HOLA ACA ESTOY");
 				}
 			} else if (keyCode == KeyEvent.VK_P)
 			{
 				if(controlador.estadoPartida() == 1 || controlador.estadoPartida() == 3) {
 					controlador.controlDePausa();
-					this.pauseJUEGO = 1;
 				}
-				/*else if (controlador.estadoPartida() == 2) {
-					controlador.controlDePausa();
-					this.pauseJUEGO = 0;
-					System.out.println("HOLA ACA ESTOY");
-				}*/
-				
 			}
 	}
 
 
 	private void mostrarBarra() {
 		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\barra.PNG";
-		//Rectangle bounds = cañon.getPosicion();
 		if (this.barra == null ){
 			this.barra = new JLabel();
 		}

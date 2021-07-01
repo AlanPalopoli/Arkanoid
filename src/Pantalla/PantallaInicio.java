@@ -32,14 +32,12 @@ public class PantallaInicio extends JFrame {
 	URL fondo;
 	private Controlador controlador;
 	
-	//private Controlador controlador;
 	
 	JButton jugar; //Boton para iniciar el juego
 	
 	JButton ranking; //Boton para ranking
 	
 	
-	//JButton configuracion; //Boton modificar parametros
 	
 	JButton salir; //Boton para salir del juego
 	
@@ -86,10 +84,6 @@ public class PantallaInicio extends JFrame {
 		ranking = new JButton();
 		ranking.setText("Ranking");
 		ranking.setBounds(50, 220, 280, 25);
-				
-		//configuracion = new JButton();
-		//configuracion.setText("Configuración");
-		//configuracion.setBounds(50, 220, 280, 25);
 		
 		salir = new JButton();
 		salir.setText("Salir");
@@ -118,14 +112,6 @@ public class PantallaInicio extends JFrame {
 
 	private void eventos() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	
-		/*configuracion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VistaConfiguracion opciones = new VistaConfiguracion(PantallaPrincipal.this);
-				opciones.setVisible(true);
-				PantallaPrincipal.this.setVisible(false);
-			}
-		});*/
 		
 		jugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

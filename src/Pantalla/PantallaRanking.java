@@ -23,20 +23,9 @@ public class PantallaRanking extends JFrame {
   JLabel[] labelNombre = new JLabel[20];
   JLabel[] labelPuntos = new JLabel[20];
   private Ranking ranking;
-  /*private String dif;
-  private boolean estado;
-  private int veloc;
-  private int recarga;
-  private String name;*/
-  //private int puntaje;
 
 
   public PantallaRanking(JFrame pantallaInicio, Ranking ranking) {
-	/*this.dif = dificultad;
-	this.estado = estado;
-	this.veloc = velocidad;
-	this.recarga = recarga;
-	this.name = nombre;*/
 	this.ranking = ranking;
     this.aux = pantallaInicio;
     realizarMatriz();
@@ -47,7 +36,6 @@ public class PantallaRanking extends JFrame {
     Container contenedor = this.getContentPane();
     contenedor.setLayout(null);
     this.getContentPane().setBackground(Color.cyan);
-    //controlador = Controlador.inicializacion(dif, estado, veloc, recarga, name);
     setTitle("Top veinte");
     setLocationRelativeTo(null);
     setResizable(false);
