@@ -17,18 +17,27 @@ public class Controlador {
 		this.ranking = new Ranking();
 	}
 	/*-----------FUNCIONES------------*/
-	public boolean estadoPartida(){
+	public int estadoPartida(){
 		return this.partida.getEstadoPartida();
 	}
 	
 	public void controlDePausa() {
-		if(this.partida.getEstadoPartida()) {
+		if(this.estadoPartida() == 1 || this.estadoPartida() == 3) {
 			this.partida.pausarPartida();
 		}
-		else 
+		else if(this.estadoPartida() == 2)
 		{
 			this.partida.reanudarPartida();
 		}
+		else if(this.estadoPartida() == 0) {
+			this.partida.setEstadoPartida(1);
+		}
+		else if(this.estadoPartida() == 4) {
+			this.partida.reanudarPartida();
+		}
+	}
+	public void setEstadoPartida(int estadoPartida) {
+		this.partida.setEstadoPartida(estadoPartida);
 	}
 	
 	public void iniciarJuego() {
@@ -38,7 +47,7 @@ public class Controlador {
 	public void controlarBarra(boolean direccion) {
 		if(direccion) {
 			this.barra.moverDerecha();
-			if(this.estadoPartida() == false) {
+			if(this.estadoPartida() == 0 || this.estadoPartida() == 4)  {
 				this.partida.aumentarPosicionBolaEnBarra(this.barra.getVelocidad());
 				if (this.partida.getPosXBola() > 842) {
 					this.partida.setPosXBola(842);
@@ -47,7 +56,7 @@ public class Controlador {
 		}
 		else {
 			this.barra.moverIzquierda();
-			if(this.estadoPartida() == false) {
+			if(this.estadoPartida() == 0 || this.estadoPartida() == 4) {
 				this.partida.restarPosicionBolaEnBarra(this.barra.getVelocidad());
 				if (this.partida.getPosXBola() < 42) {
 					this.partida.setPosXBola(42);
@@ -66,7 +75,7 @@ public class Controlador {
 	
 	
 	public boolean revisarColision() {
-		if(this.estadoPartida() == true)
+		if(this.estadoPartida() == 1 || this.estadoPartida() == 3)
 			return this.partida.chequearColision();
 		else 
 			return false;
@@ -126,6 +135,10 @@ public class Controlador {
 		this.partida.randomInicioBola();
 	}
 	
+	public void resetearBarra() {
+		this.partida.resetearBarra();
+	}
+	
 	/*-----------GETTERS------------*/
 	public int getNumeroNivel() {
 		return this.partida.getNivel();
@@ -167,8 +180,12 @@ public class Controlador {
 		return this.partida.getChoqueBola();
 	}
 	
-	public int getVelocidadBola() {
+	public double getVelocidadBola() {
 		return this.partida.getVelocidadBola();
+	}
+	
+	public Ranking getRanking() {
+		return this.ranking;
 	}
 	/*-----------SETTERS------------*/
 	

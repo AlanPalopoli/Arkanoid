@@ -3,11 +3,11 @@ package Negocios;
 public class Bola {
 	private double posicionX;
 	private double posicionY;
-	private int velocidad;
+	private double velocidad;
 	private int radio;
 	private double anguloMovimiento;
 
-	public Bola (int xInicio, int yInicio, int velPrede, int radioPrede, int anguloPrede) {
+	public Bola (int xInicio, int yInicio, double velPrede, int radioPrede, int anguloPrede) {
 		this.setPosicionX(xInicio);
 		this.setPosicionY(yInicio);
 		this.setVelocidad(velPrede);
@@ -16,7 +16,7 @@ public class Bola {
 		
 	}
 	/*-----------FUNCIONES------------*/
-	public void aumentarVelocidad(int velocidadAumentada) {
+	public void aumentarVelocidad(double velocidadAumentada) {
 		this.setVelocidad(velocidadAumentada);
 	}
 
@@ -33,7 +33,7 @@ public class Bola {
 		return anguloMovimiento;
 	}
 	
-	public int getVelocidad() {
+	public double getVelocidad() {
 		return velocidad;
 	}
 	public int getRadio() {
@@ -64,7 +64,7 @@ public class Bola {
 		this.setPosicionY(yInicio);
 	}
 
-	public void setVelocidad(int velocidad) {
+	public void setVelocidad(double velocidad) {
 		this.velocidad = velocidad;
 	}
 

@@ -1,5 +1,7 @@
 package Negocios;
 
+import java.util.List;
+
 public class Ranking {
 	private String jugadores[];
 	private int	puntajes[];
@@ -36,5 +38,13 @@ public class Ranking {
 		}
 		this.puntajes[posicion] = puntos;
 		this.jugadores[posicion] = nombreJugador;
+	}
+	
+	public String[] getJugadores(){
+		return this.jugadores;
+	}
+	
+	public int[] getPuntajes() {
+		return this.puntajes;
 	}
 }

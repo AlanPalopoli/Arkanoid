@@ -16,6 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controller.Controlador;
+import Pantalla.PantallaInicio;
+import Pantalla.PantallaRanking;
+
 public class PantallaInicio extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -26,10 +30,14 @@ public class PantallaInicio extends JFrame {
 	/*declaramos los objetos JLabels*/
 	Image imagenFondo;
 	URL fondo;
+	private Controlador controlador;
 	
 	//private Controlador controlador;
 	
 	JButton jugar; //Boton para iniciar el juego
+	
+	JButton ranking; //Boton para ranking
+	
 	
 	//JButton configuracion; //Boton modificar parametros
 	
@@ -52,6 +60,8 @@ public class PantallaInicio extends JFrame {
 	
 	private void iniciarComponentes() {
 		
+		this.controlador = new Controlador();
+		
 		contenedor = this.getContentPane();/*instanciamos el contenedor
 		con esto definmos nosotros mismos los tamaños y posiciones de los componentes*/
 		
@@ -72,6 +82,10 @@ public class PantallaInicio extends JFrame {
 		jugar = new JButton();
 		jugar.setText("Jugar");
 		jugar.setBounds(50, 150, 280, 25);
+		
+		ranking = new JButton();
+		ranking.setText("Ranking");
+		ranking.setBounds(50, 220, 280, 25);
 				
 		//configuracion = new JButton();
 		//configuracion.setText("Configuración");
@@ -82,7 +96,7 @@ public class PantallaInicio extends JFrame {
 		salir.setBounds(50, 290, 280, 25);
 		
 		this.jugar.setActionCommand("Jugar");
-		//this.configuracion.setActionCommand("Configuracion");
+		this.ranking.setActionCommand("Ranking");
 		this.salir.setActionCommand("Salir");
 		
 		
@@ -90,7 +104,7 @@ public class PantallaInicio extends JFrame {
 		
 		contenedor.add(titulo);
 		contenedor.add(jugar);
-		//contenedor.add(configuracion);
+		contenedor.add(ranking);
 		contenedor.add(salir);
 		contenedor.add(panel);
 	}
@@ -115,11 +129,20 @@ public class PantallaInicio extends JFrame {
 		
 		jugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PantallaJuego jugando = new PantallaJuego(PantallaInicio.this);
+				PantallaJuego jugando = new PantallaJuego(PantallaInicio.this, controlador);
 				jugando.setVisible(true);
 				PantallaInicio.this.setVisible(false);
 			}
 		});
+		
+		ranking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaRanking jugando = new PantallaRanking(PantallaInicio.this, controlador.getRanking());
+				jugando.setVisible(true);
+				PantallaInicio.this.setVisible(false);
+			}
+		});
+		
 		
 		salir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
