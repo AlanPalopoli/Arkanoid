@@ -9,7 +9,7 @@ public class Controlador {
 	private Partida partida;
 	private Ranking ranking;
 	private Barra barra;
-	private String nombreJugador;
+	
 	
 	public Controlador(){
 		this.barra = new Barra(380, 500, 100, 20, 30);
@@ -36,6 +36,7 @@ public class Controlador {
 			this.partida.reanudarPartida();
 		}
 	}
+	
 	public void setEstadoPartida(int estadoPartida) {
 		this.partida.setEstadoPartida(estadoPartida);
 	}
@@ -65,14 +66,10 @@ public class Controlador {
 		}
 	}
 	
-	public void ingresarNombre(String nombre) {
-		this.nombreJugador = nombre;
-	}
 	
 	public void terminarPartida() {
 		this.partida = new Partida(this.barra);
 	}
-	
 	
 	public boolean revisarColision() {
 		if(this.estadoPartida() == 1 || this.estadoPartida() == 3)
@@ -85,16 +82,10 @@ public class Controlador {
 		this.partida.movimientoBola();
 	}
 		
-	
-
 	public boolean nivelSuperado() {
 		boolean aumenta = this.partida.getLadrillosDestruidos() == 25;
 		if(aumenta) {
 			this.partida.aumentarNivel();
-			this.partida.subirVelocidad();
-			this.partida.resetearBarra();
-			this.partida.resetearBola();
-			this.partida.resetearLadrillo();
 		}
 		return aumenta;
 	}
@@ -188,7 +179,6 @@ public class Controlador {
 		return this.ranking;
 	}
 	/*-----------SETTERS------------*/
-	
 	public void setPosicionXBarra(int pos) {
 		this.barra.setPosicionX(pos);
 	}
@@ -204,9 +194,6 @@ public class Controlador {
 	public void setEstadoChoqueBola(int valor) {
 		this.partida.setChoqueBola(valor);
 	}
-	
-	
-	
 }
 
 

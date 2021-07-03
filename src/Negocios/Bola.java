@@ -19,7 +19,6 @@ public class Bola {
 	public void aumentarVelocidad(double velocidadAumentada) {
 		this.setVelocidad(velocidadAumentada);
 	}
-
 	/*-----------GETTERS------------*/
 	public double getPosicionX() {
 		return posicionX;
@@ -36,11 +35,11 @@ public class Bola {
 	public double getVelocidad() {
 		return velocidad;
 	}
+	
 	public int getRadio() {
 		return radio;
 	}
-	
-	/*-----------SETTERS------------*/
+/*-----------SETTERS------------*/
 	public void setPosicionX(double posX) {
 		this.posicionX = posX;
 	}
@@ -71,7 +70,6 @@ public class Bola {
 	public void setRadio(int radio) {
 		this.radio = radio;
 	}
-	
 }
 
 

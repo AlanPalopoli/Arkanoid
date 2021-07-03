@@ -80,7 +80,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 
 		labelNivel.setBounds(20, 5, 75, 25);
 		labelVidas.setBounds(370, 5, 140, 25);
-		labelPuntosTotal.setBounds(785, 5, 150, 25);
+		labelPuntosTotal.setBounds(755, 5, 150, 25);
 		botonSalir.setBounds(20, 525, 60, 25);
 
 		labelNivel.setText("Nivel: " + controlador.getNumeroNivel());
@@ -213,7 +213,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 
 	private void mostrarBola() {
 		
-			String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\bola.PNG";
+			String urlImagen = "src\\Image\\bola.PNG";
 			Rectangle bounds = controlador.getPosicionBola();
 			if (this.bola == null) {
 				this.bola = new JLabel();
@@ -228,7 +228,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 			}
 	}
 	private void mostrarLadrillo() {
-		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\ladrillo.PNG";
+		String urlImagen = "src\\Image\\ladrillo.PNG";
 		int sizeArray = 0;
 		int sizeArray2 = controlador.sizeLadrillos(sizeArray);
 		for (int i=0;i<sizeArray2;i++){
@@ -331,7 +331,7 @@ public class PantallaJuego extends JFrame implements KeyListener{
 
 
 	private void mostrarBarra() {
-		String urlImagen = "C:\\Users\\alan\\eclipse-workspace\\TP-IOO\\src\\Image\\barra.PNG";
+		String urlImagen = "src\\Image\\barra.PNG";
 		if (this.barra == null ){
 			this.barra = new JLabel();
 		}

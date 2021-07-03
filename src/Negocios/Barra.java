@@ -49,9 +49,8 @@ public class Barra {
 		this.posicionY = posicionY;
 	}
 
-
-	public int setPosicionX(int posicionX) {
-		return this.posicionX = posicionX;
+	public void setPosicionX(int posicionX) {
+		this.posicionX = posicionX;
 	}
 
 	public void setPosicionInicio(int xInicio, int yInicio) {

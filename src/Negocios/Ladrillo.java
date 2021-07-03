@@ -21,9 +21,11 @@ public class Ladrillo {
 		this.destruido = true;
 		return this.valor;
 	}
+	
 	public void resetearLadrillo() {
 		this.destruido = false;
 	}
+	
 	public boolean estadoLadrillo() {
 		return this.destruido;
 	}
@@ -63,7 +65,4 @@ public class Ladrillo {
 	public void setAlto(int alto) {
 		this.alto = alto;
 	}
-	
-
-
 }
