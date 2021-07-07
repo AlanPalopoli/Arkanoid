@@ -2,14 +2,20 @@ package Pantalla;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import Controller.Controlador;
 import Negocios.Ranking;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 
@@ -18,30 +24,45 @@ import javax.swing.JButton;
 public class PantallaRanking extends JFrame {
 	
   private static final long serialVersionUID = -7636415361935249703L;
+  private Container contenedor;
   JFrame aux;
   JButton botonSalir;
   JLabel[] labelNombre = new JLabel[20];
   JLabel[] labelPuntos = new JLabel[20];
+  JLabel titulo;
+  Image imagenFondo;
+  URL fondo;
+
   private Ranking ranking;
 
 
   public PantallaRanking(JFrame pantallaInicio, Ranking ranking) {
 	this.ranking = ranking;
     this.aux = pantallaInicio;
+    setTitle("Top veinte");
+    setBounds(0, 0, 1000, 750);
+    setLocationRelativeTo(null);
+    setResizable(false);
+    
     realizarMatriz();
     salir();
   }
 
   private void realizarMatriz() {
-    Container contenedor = this.getContentPane();
-    contenedor.setLayout(null);
-    this.getContentPane().setBackground(Color.cyan);
-    setTitle("Top veinte");
-    setLocationRelativeTo(null);
-    setResizable(false);
-    this.setSize(1000, 800);
-    this.setResizable(false);
-    botonSalir = new JButton("Salir");
+    contenedor = this.getContentPane();
+    //contenedor.setLayout(null);
+    //this.getContentPane().setBackground(Color.white);
+    
+    fondo = this.getClass().getResource("/Image/fondo_ranking.png");
+	imagenFondo = new ImageIcon(fondo).getImage();
+
+    botonSalir = new JButton();
+    titulo = new JLabel("Ranking");
+    titulo.setBounds(460, 20 , 60 , 40 );
+    titulo.setForeground(Color.RED);
+    botonSalir.setText("Salir");
+    botonSalir.setBounds(870, 660, 60, 25);
+    this.botonSalir.setActionCommand("Salir");
 
     int a = 0;
     while (a < 20) {
@@ -53,7 +74,8 @@ public class PantallaRanking extends JFrame {
     a = 0;
     int suma = 50;
     while (a < 20) {
-      labelNombre[a].setBounds(260, suma, 60, 40);
+      labelNombre[a].setBounds(380, suma, 60, 40);
+      labelNombre[a].setForeground(Color.RED);
       suma += 30;
       a += 1;
     }
@@ -61,7 +83,8 @@ public class PantallaRanking extends JFrame {
     a = 0;
     suma = 50;
     while (a < 20) {
-      labelPuntos[a].setBounds(470, suma, 60, 40);
+      labelPuntos[a].setBounds(590, suma, 60, 40);
+      labelPuntos[a].setForeground(Color.RED);
       suma += 30;
       a += 1;
     }
@@ -75,11 +98,20 @@ public class PantallaRanking extends JFrame {
       contenedor.add(labelPuntos[a]);
       a += 1;
     }
-    
-    botonSalir.setBounds(620, 25, 60, 25);
-    contenedor.add(botonSalir);
+
     configurarRanking();
+    contenedor.add(botonSalir);
+    contenedor.add(titulo);
+    contenedor.add(panel);
+
   }
+  
+  @SuppressWarnings("serial")
+	public JPanel panel = new JPanel(){
+	 	public void paintComponent(Graphics g){
+		    g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+	    }
+	};
   
   private void configurarRanking() {
 	  String[] nombre = new String[10];
@@ -89,8 +121,11 @@ public class PantallaRanking extends JFrame {
 	  int i = 0;
 	  while (i < 20 && nombre[i] != null) {
 		  this.labelNombre[i].setText(nombre[i]);
+		  //this.labelNombre[i].set(nombre[i]);
+		  this.labelNombre[i].setForeground(Color.RED);
 		  String texto = Integer.toString(puntajeJugador[i]);
 		  this.labelPuntos[i].setText(texto);
+		  this.labelPuntos[i].setForeground(Color.RED);
 		  i += 1;
 	  }
   }

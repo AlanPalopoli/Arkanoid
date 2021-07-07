@@ -28,7 +28,7 @@ public class Partida {
 		this.setNivel(1);
 		this.setPuntos(0);
 		this.setEstadoPartida(0);
-		this.bola = new Bola(422, 490, 4, 10, 0);
+		this.bola = new Bola(414, 487, 4, 10, 0);
 		this.barra = barraCreada;
 		this.xMayor = 870; 	//Pared Derecha  //ANCHO=700 LARGO=500
 		this.xMenor = 0;	//Pared Izquierda
@@ -256,7 +256,7 @@ public class Partida {
 	}
 	
 	public void resetearBola() {
-		this.bola.setPosicionInicio(422,490);
+		this.bola.setPosicionInicio(414,487);
 	}
 	
 	public void resetearBarra() {
